@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { vehicleInputSchema } from "@/lib/validations/vehicle";
 import { requireAdminUser } from "@/lib/auth/require-admin";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { generateUniqueVehicleSlug } from "@/lib/slug";
 
 export const dynamic = "force-dynamic";
 
@@ -23,9 +24,15 @@ export async function POST(request: NextRequest) {
 
   try {
     const supabase = createAdminClient();
+    const slug = await generateUniqueVehicleSlug(supabase, {
+      year: parsed.data.year,
+      make: parsed.data.make,
+      model: parsed.data.model,
+    });
+
     const { data, error } = await supabase
       .from("vehicles")
-      .insert(parsed.data)
+      .insert({ ...parsed.data, slug })
       .select()
       .single();
 
