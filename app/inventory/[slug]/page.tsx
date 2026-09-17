@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageHeader from "@/components/layout/PageHeader";
-import VehicleMedia from "@/components/inventory/VehicleMedia";
-import StatusTag from "@/components/inventory/StatusTag";
+import VehicleGallery from "@/components/inventory/VehicleGallery";
 import TrustSignals from "@/components/inventory/TrustSignals";
 import { getVehicleBySlug } from "@/lib/vehicles";
 import { formatPrice, formatMileage } from "@/lib/format";
@@ -60,10 +59,7 @@ export default async function VehicleDetailPage({
 
       <div className="mx-auto max-w-7xl px-4 py-12 md:px-8">
         <div className="grid gap-10 lg:grid-cols-2">
-          <div className="relative aspect-[4/3]">
-            <VehicleMedia vehicle={vehicle} className="absolute inset-0" priority />
-            <StatusTag vehicle={vehicle} />
-          </div>
+          <VehicleGallery vehicle={vehicle} />
 
           <div>
             <p className="font-body text-edgeline-white/60">
