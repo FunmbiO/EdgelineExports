@@ -9,7 +9,7 @@ import type {
 
 export const VEHICLES_PAGE_SIZE = 12;
 
-interface VehicleRow {
+export interface VehicleRow {
   id: string;
   slug: string;
   make: string;
@@ -27,7 +27,7 @@ interface VehicleRow {
   updated_at: string;
 }
 
-function mapVehicleRow(row: VehicleRow): Vehicle {
+export function mapVehicleRow(row: VehicleRow): Vehicle {
   return {
     id: row.id,
     slug: row.slug,
