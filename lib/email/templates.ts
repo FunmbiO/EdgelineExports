@@ -180,3 +180,49 @@ export function sellTeamEmail({
     ),
   };
 }
+
+export function contactClientEmail({ name, email }: { name: string; email: string }) {
+  return {
+    to: email,
+    subject: "We've got your message — Edgeline Exports",
+    html: wrapper(
+      "Message Received",
+      `
+        <p style="color: #333; font-size: 14px; line-height: 1.6;">Hi ${name},</p>
+        <p style="color: #333; font-size: 14px; line-height: 1.6;">
+          Thanks for reaching out. We typically respond within one business day.
+        </p>
+      `,
+    ),
+  };
+}
+
+export function contactTeamEmail({
+  name,
+  email,
+  subject,
+  message,
+}: {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}) {
+  return {
+    to: TEAM_EMAIL,
+    subject: `New contact form message — ${subject}`,
+    html: wrapper(
+      "New Contact Message",
+      `
+        <table style="border-collapse: collapse; width: 100%;">
+          ${detailRows([
+            ["Name", name],
+            ["Email", email],
+            ["Subject", subject],
+            ["Message", message],
+          ])}
+        </table>
+      `,
+    ),
+  };
+}
