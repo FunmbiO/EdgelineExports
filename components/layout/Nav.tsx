@@ -33,12 +33,20 @@ export default function Nav() {
           ))}
         </nav>
 
-        <Link
-          href="/source-a-car"
-          className="hidden shrink-0 border border-edgeline-red bg-edgeline-red px-5 py-2 font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:bg-transparent hover:text-edgeline-red md:inline-block"
-        >
-          Find My Car
-        </Link>
+        <div className="hidden shrink-0 items-center gap-4 md:flex">
+          <Link
+            href="/admin/login"
+            className="font-condensed text-xs uppercase tracking-wider text-edgeline-white/50 hover:text-edgeline-red"
+          >
+            Admin
+          </Link>
+          <Link
+            href="/source-a-car"
+            className="border border-edgeline-red bg-edgeline-red px-5 py-2 font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:bg-transparent hover:text-edgeline-red"
+          >
+            Find My Car
+          </Link>
+        </div>
 
         <button
           type="button"
@@ -75,6 +83,13 @@ export default function Nav() {
             className="mt-2 inline-block bg-edgeline-red px-5 py-3 text-center font-condensed text-sm uppercase tracking-wider text-edgeline-white"
           >
             Find My Car
+          </Link>
+          <Link
+            href="/admin/login"
+            onClick={() => setOpen(false)}
+            className="mt-2 py-2 text-center font-condensed text-xs uppercase tracking-wider text-edgeline-white/50"
+          >
+            Admin
           </Link>
         </nav>
       )}

@@ -16,7 +16,6 @@ const SERVICE_LINKS = [
 const LEGAL_LINKS = [
   { href: "#", label: "Privacy Policy" },
   { href: "#", label: "Terms of Service" },
-  { href: "/admin/login", label: "Admin" },
 ];
 
 export default function Footer() {
