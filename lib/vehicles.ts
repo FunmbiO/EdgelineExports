@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import type {
   InventoryFilter,
   Vehicle,
@@ -60,7 +60,7 @@ export async function getVehicles({
   page: number;
 }> {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     let query = supabase
       .from("vehicles")
       .select("*", { count: "exact" })
@@ -94,7 +94,7 @@ export async function getVehicles({
 
 export async function getFeaturedVehicle(): Promise<Vehicle | null> {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("vehicles")
       .select("*")
@@ -114,7 +114,7 @@ export async function getFeaturedVehicle(): Promise<Vehicle | null> {
 
 export async function getVehicleBySlug(slug: string): Promise<Vehicle | null> {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("vehicles")
       .select("*")

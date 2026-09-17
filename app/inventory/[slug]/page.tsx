@@ -8,7 +8,7 @@ import TrustSignals from "@/components/inventory/TrustSignals";
 import { getVehicleBySlug } from "@/lib/vehicles";
 import { formatPrice, formatMileage } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 const SPEC_LABELS: Record<string, string> = {
   engine: "Engine",
