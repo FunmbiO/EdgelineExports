@@ -6,7 +6,7 @@ import { formatPrice, formatMileage } from "@/lib/format";
 export default function PickOfTheWeek({ vehicle }: { vehicle: Vehicle }) {
   return (
     <div className="grid overflow-hidden border border-edgeline-border md:grid-cols-2">
-      <VehicleMedia vehicle={vehicle} className="aspect-[4/3] md:aspect-auto" priority />
+      <VehicleMedia vehicle={vehicle} className="relative aspect-[4/3] md:aspect-auto" priority />
 
       <div className="flex flex-col justify-center bg-edgeline-black p-8 md:p-12">
         <p className="font-condensed text-sm uppercase tracking-[0.3em] text-edgeline-red">

@@ -16,7 +16,7 @@ export default function VehicleMedia({
 
   if (primaryImage) {
     return (
-      <div className={`relative overflow-hidden bg-edgeline-black ${className}`}>
+      <div className={`overflow-hidden bg-edgeline-black ${className}`}>
         <Image
           src={primaryImage.url}
           alt={primaryImage.alt ?? `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
@@ -31,7 +31,7 @@ export default function VehicleMedia({
 
   return (
     <div
-      className={`relative flex items-center justify-center overflow-hidden bg-edgeline-black ${className}`}
+      className={`flex items-center justify-center overflow-hidden bg-edgeline-black ${className}`}
     >
       <div
         className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(196,30,42,0.35),transparent_60%)]"
