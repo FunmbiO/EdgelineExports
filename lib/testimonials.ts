@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import type { Testimonial } from "@/types/testimonial";
 
 interface TestimonialRow {
@@ -10,7 +10,7 @@ interface TestimonialRow {
 
 export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data, error } = await supabase
       .from("testimonials")
       .select("*")

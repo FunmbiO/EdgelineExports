@@ -7,7 +7,7 @@ import PickOfTheWeek from "@/components/inventory/PickOfTheWeek";
 import { getVehicles, getFeaturedVehicle, VEHICLES_PAGE_SIZE } from "@/lib/vehicles";
 import { INVENTORY_FILTERS, type InventoryFilter } from "@/types/vehicle";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Inventory | Edgeline Exports",

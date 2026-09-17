@@ -5,7 +5,7 @@ import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CtaBanner from "@/components/home/CtaBanner";
 import { getFeaturedTestimonials } from "@/lib/testimonials";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function Home() {
   const testimonials = await getFeaturedTestimonials();
