@@ -13,7 +13,7 @@ export const sellRequestSchema = z.object({
   year: z.string().optional(),
   mileage: z.string().optional(),
   interest: z.enum(["outright", "consignment", "not-sure"], {
-    errorMap: () => ({ message: "Please select an option" }),
+    message: "Please select an option",
   }),
   details: z.string().optional(),
   hpField: z.string().max(0).optional(),
