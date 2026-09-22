@@ -42,3 +42,46 @@ export async function getLeads(status?: LeadStatus): Promise<Lead[]> {
     return [];
   }
 }
+
+export async function getLeadById(id: string): Promise<Lead | null> {
+  try {
+    const supabase = createAdminClient();
+    const { data, error } = await supabase.from("leads").select("*").eq("id", id).maybeSingle();
+    if (error) throw error;
+    return data ? mapLeadRow(data as LeadRow) : null;
+  } catch (err) {
+    console.error("getLeadById failed:", err);
+    return null;
+  }
+}
+
+export interface LeadSubmission {
+  type: string;
+  payload: Record<string, unknown>;
+  createdAt: string;
+}
+
+export async function getLatestSubmissionForLead(leadId: string): Promise<LeadSubmission | null> {
+  try {
+    const supabase = createAdminClient();
+    const { data, error } = await supabase
+      .from("form_submissions")
+      .select("type, payload, created_at")
+      .eq("lead_id", leadId)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (error) throw error;
+    if (!data) return null;
+
+    return {
+      type: data.type,
+      payload: (data.payload as Record<string, unknown>) ?? {},
+      createdAt: data.created_at,
+    };
+  } catch (err) {
+    console.error("getLatestSubmissionForLead failed:", err);
+    return null;
+  }
+}
