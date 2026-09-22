@@ -17,6 +17,7 @@ const LEAD_FIELD_LABELS: Record<string, string> = {
 };
 
 const HIDDEN_FIELDS = new Set(["name", "email", "phone", "hpField"]);
+const MULTILINE_FIELDS = new Set(["options", "notes", "details", "message"]);
 
 function humanizeKey(key: string): string {
   const spaced = key.replace(/([A-Z])/g, " $1").toLowerCase();
@@ -25,11 +26,12 @@ function humanizeKey(key: string): string {
 
 export function getDisplayableSubmissionFields(
   payload: Record<string, unknown>,
-): { label: string; value: string }[] {
+): { label: string; value: string; multiline: boolean }[] {
   return Object.entries(payload)
     .filter(([key, value]) => !HIDDEN_FIELDS.has(key) && value !== undefined && value !== null && value !== "")
     .map(([key, value]) => ({
       label: LEAD_FIELD_LABELS[key] ?? humanizeKey(key),
       value: String(value),
+      multiline: MULTILINE_FIELDS.has(key),
     }));
 }
