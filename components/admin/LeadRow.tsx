@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import type { Lead, LeadStatus } from "@/types/lead";
 
 const STATUS_OPTIONS: LeadStatus[] = ["new", "contacted", "active", "closed"];
@@ -26,7 +27,9 @@ export default function LeadRow({ lead }: { lead: Lead }) {
   return (
     <tr className="border-b border-edgeline-border align-top last:border-0">
       <td className="px-4 py-3 font-body text-edgeline-white">
-        {lead.name}
+        <Link href={`/admin/leads/${lead.id}`} className="hover:text-edgeline-red">
+          {lead.name}
+        </Link>
         <p className="text-xs text-edgeline-white/50">{lead.email}</p>
         {lead.phone && <p className="text-xs text-edgeline-white/50">{lead.phone}</p>}
       </td>
