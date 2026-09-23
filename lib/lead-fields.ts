@@ -14,9 +14,15 @@ const LEAD_FIELD_LABELS: Record<string, string> = {
   details: "Details",
   subject: "Subject",
   message: "Message",
+  vehicleMake: "Vehicle Make",
+  vehicleModel: "Vehicle Model",
+  vehicleYear: "Vehicle Year",
+  vehiclePrice: "Vehicle Price",
 };
 
-const HIDDEN_FIELDS = new Set(["name", "email", "phone", "hpField"]);
+// vehicleSlug is shown as a "View Vehicle Listing" link instead, not a
+// generic field — see app/admin/(dashboard)/leads/[id]/page.tsx.
+const HIDDEN_FIELDS = new Set(["name", "email", "phone", "hpField", "vehicleSlug"]);
 const MULTILINE_FIELDS = new Set(["options", "notes", "details", "message"]);
 
 function humanizeKey(key: string): string {

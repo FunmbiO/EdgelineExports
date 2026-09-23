@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import PageHeader from "@/components/layout/PageHeader";
 import VehicleGallery from "@/components/inventory/VehicleGallery";
 import TrustSignals from "@/components/inventory/TrustSignals";
+import InquiryModal from "@/components/inventory/InquiryModal";
 import { getVehicleBySlug } from "@/lib/vehicles";
 import { formatPrice, formatMileage } from "@/lib/format";
 
@@ -93,12 +94,15 @@ export default async function VehicleDetailPage({
 
             {!isSold && (
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href={`mailto:hello@edgelineexports.com?subject=${inquirySubject}`}
-                  className="inline-block bg-edgeline-red px-8 py-4 text-center font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:bg-edgeline-red-dark"
-                >
-                  Inquire Now
-                </a>
+                <InquiryModal
+                  vehicle={{
+                    slug: vehicle.slug,
+                    year: vehicle.year,
+                    make: vehicle.make,
+                    model: vehicle.model,
+                    price: vehicle.price,
+                  }}
+                />
                 <a
                   href={`mailto:hello@edgelineexports.com?subject=${inquirySubject}%20-%20Inspection%20Report`}
                   className="inline-block border border-edgeline-white/30 px-8 py-4 text-center font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:border-edgeline-red hover:text-edgeline-red"
