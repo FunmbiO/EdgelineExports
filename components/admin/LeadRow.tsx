@@ -94,6 +94,26 @@ export default function LeadRow({ lead }: { lead: Lead }) {
       <td className="px-4 py-3 font-body text-xs text-edgeline-white/50">
         {formatRelativeTime(lead.createdAt)}
       </td>
+      <td className="px-4 py-3">
+        {status === "closed" ? (
+          <span className="font-condensed text-xs uppercase tracking-wider text-edgeline-white/30">
+            Closed
+          </span>
+        ) : (
+          <button
+            type="button"
+            onClick={() => {
+              setStatus("closed");
+              setIsSavingStatus(true);
+              save({ status: "closed" }).finally(() => setIsSavingStatus(false));
+            }}
+            disabled={isSavingStatus}
+            className="border border-edgeline-white/30 px-3 py-1.5 font-condensed text-xs uppercase tracking-wider text-edgeline-white/70 transition-colors hover:border-edgeline-red hover:text-edgeline-red disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            Close
+          </button>
+        )}
+      </td>
     </tr>
   );
 }
