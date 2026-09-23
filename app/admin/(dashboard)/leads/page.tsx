@@ -73,12 +73,13 @@ export default async function AdminLeadsPage({
               <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3">Internal Notes</th>
               <th className="px-4 py-3">Received</th>
+              <th className="px-4 py-3"></th>
             </tr>
           </thead>
           <tbody>
             {leads.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-12 text-center font-body text-edgeline-white/50">
+                <td colSpan={6} className="px-4 py-12 text-center font-body text-edgeline-white/50">
                   {activeStatus
                     ? `No ${activeStatus} leads right now.`
                     : "No leads yet — they'll show up here as soon as someone submits a form."}
