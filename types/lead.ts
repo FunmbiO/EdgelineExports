@@ -1,5 +1,5 @@
 export type LeadStatus = "new" | "contacted" | "active" | "closed";
-export type LeadSource = "sourcing" | "sell" | "contact" | "inquiry";
+export type LeadSource = "sourcing" | "sell" | "contact" | "inquiry" | "report";
 
 export interface Lead {
   id: string;

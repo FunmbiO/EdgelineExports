@@ -5,6 +5,7 @@ import PageHeader from "@/components/layout/PageHeader";
 import VehicleGallery from "@/components/inventory/VehicleGallery";
 import TrustSignals from "@/components/inventory/TrustSignals";
 import InquiryModal from "@/components/inventory/InquiryModal";
+import ReportRequestModal from "@/components/inventory/ReportRequestModal";
 import { getVehicleBySlug } from "@/lib/vehicles";
 import { formatPrice, formatMileage } from "@/lib/format";
 
@@ -47,9 +48,6 @@ export default async function VehicleDetailPage({
 
   const isSold = vehicle.status === "sold";
   const specEntries = Object.entries(vehicle.specs).filter(([, value]) => value);
-  const inquirySubject = encodeURIComponent(
-    `Inquiry: ${vehicle.year} ${vehicle.make} ${vehicle.model}`,
-  );
 
   return (
     <div className="bg-edgeline-black">
@@ -103,12 +101,15 @@ export default async function VehicleDetailPage({
                     price: vehicle.price,
                   }}
                 />
-                <a
-                  href={`mailto:hello@edgelineexports.com?subject=${inquirySubject}%20-%20Inspection%20Report`}
-                  className="inline-block border border-edgeline-white/30 px-8 py-4 text-center font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:border-edgeline-red hover:text-edgeline-red"
-                >
-                  Request Report
-                </a>
+                <ReportRequestModal
+                  vehicle={{
+                    slug: vehicle.slug,
+                    year: vehicle.year,
+                    make: vehicle.make,
+                    model: vehicle.model,
+                    price: vehicle.price,
+                  }}
+                />
               </div>
             )}
           </div>

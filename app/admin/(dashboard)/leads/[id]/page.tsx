@@ -12,6 +12,7 @@ const SOURCE_LABELS: Record<string, string> = {
   sell: "Sell Your Car",
   contact: "Contact Form",
   inquiry: "Vehicle Inquiry",
+  report: "Report Request",
 };
 
 function getInitials(name: string): string {
@@ -27,7 +28,8 @@ export default async function AdminLeadDetailPage({ params }: { params: { id: st
   const submission = await getLatestSubmissionForLead(lead.id);
   const fields = submission ? getDisplayableSubmissionFields(submission.payload) : [];
   const vehicleSlug =
-    submission?.type === "inquiry" && typeof submission.payload.vehicleSlug === "string"
+    (submission?.type === "inquiry" || submission?.type === "report") &&
+    typeof submission.payload.vehicleSlug === "string"
       ? submission.payload.vehicleSlug
       : null;
 

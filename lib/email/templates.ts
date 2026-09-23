@@ -254,6 +254,73 @@ export function inquiryClientEmail({
   };
 }
 
+export function reportRequestClientEmail({
+  name,
+  email,
+  vehicleLabel,
+  reference,
+}: {
+  name: string;
+  email: string;
+  vehicleLabel: string;
+  reference: string;
+}) {
+  return {
+    to: email,
+    subject: `We've got your report request for the ${vehicleLabel} — Edgeline Exports`,
+    html: wrapper(
+      "Report Request Received",
+      `
+        <p style="color: #333; font-size: 14px; line-height: 1.6;">Hi ${name},</p>
+        <p style="color: #333; font-size: 14px; line-height: 1.6;">
+          Thanks for requesting an inspection report on the ${vehicleLabel}. Our team will send it
+          over within 24 hours.
+        </p>
+        <p style="color: #666; font-size: 13px;">Reference: <strong>${reference}</strong></p>
+      `,
+    ),
+  };
+}
+
+export function reportRequestTeamEmail({
+  name,
+  email,
+  phone,
+  vehicleLabel,
+  vehiclePrice,
+  vehicleSlug,
+  reference,
+}: {
+  name: string;
+  email: string;
+  phone?: string;
+  vehicleLabel: string;
+  vehiclePrice: string;
+  vehicleSlug: string;
+  reference: string;
+}) {
+  return {
+    to: TEAM_EMAIL,
+    subject: `New report request — ${vehicleLabel} (${reference})`,
+    html: wrapper(
+      "New Inspection Report Request",
+      `
+        <table style="border-collapse: collapse; width: 100%;">
+          ${detailRows([
+            ["Name", name],
+            ["Email", email],
+            ["Phone", phone],
+            ["Vehicle", vehicleLabel],
+            ["Price", vehiclePrice],
+            ["Listing", vehicleSlug],
+            ["Reference", reference],
+          ])}
+        </table>
+      `,
+    ),
+  };
+}
+
 export function inquiryTeamEmail({
   name,
   email,
