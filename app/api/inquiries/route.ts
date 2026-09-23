@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name, email, phone, vehicleSlug } = parsed.data;
+    const { name, email, phone, notes, vehicleSlug } = parsed.data;
 
     const { data: vehicle, error: vehicleError } = await supabase
       .from("vehicles")
@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
           name,
           email,
           phone,
+          notes,
           vehicleSlug,
           vehicleMake: vehicle.make,
           vehicleModel: vehicle.model,
@@ -99,6 +100,7 @@ export async function POST(request: NextRequest) {
           vehicleLabel,
           vehiclePrice: vehiclePriceLabel,
           vehicleSlug,
+          notes,
           reference,
         }),
       ),
