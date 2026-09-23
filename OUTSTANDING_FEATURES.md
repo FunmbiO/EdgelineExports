@@ -31,8 +31,9 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
 
 ## Sprint 3 — Source & Sell Forms
 
-- [ ] Resend email sending has never been tested end-to-end with a live
-      API key — only verified it degrades gracefully without one.
+- [x] Resend email sending is wired up and confirmed working live (client +
+      team emails both deliver) — see the new "Email" note below for the
+      caveats that still apply.
 - [ ] Admin notification webhook (Slack/Discord) — skipped, it's P2/optional
       in the plan.
 - [ ] No CAPTCHA — intentional per the plan's risk register (Phase 2 if
@@ -64,10 +65,10 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
       first submission instead, which is the closest equivalent without
       building a full customer account system. Revisit if real accounts
       are ever wanted.
-- [ ] Inquiry and report-request emails (like sourcing/sell/contact) go
-      through the same Resend integration that's never been tested with a
-      live API key — the lead + form_submission are created either way,
-      only the actual email delivery is unverified.
+- [x] Inquiry and report-request confirmation emails redesigned to match
+      the site's black/red/white theme (checkmark badge, vehicle summary
+      card, full submitted-details table, "View This Vehicle" button) and
+      confirmed delivering live through Resend.
 
 ## Cross-cutting
 
@@ -77,3 +78,25 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
 - [ ] Commits aren't cryptographically signed (shows "Unverified" on
       GitHub) — cosmetic only, requires a signing key on the user's machine
       to resolve.
+- [ ] Leads created *before* the `status` default was changed from `new` to
+      `active` are still sitting at `new` in the live DB — the default only
+      applies to new inserts. A one-time bulk update would be needed to
+      bring existing leads in line, if wanted.
+
+## Email
+
+- [ ] Resend is running in **sandbox mode** — no domain has been registered
+      yet. Sending works, but two things are locked down until a domain is
+      bought and verified in Resend:
+      - `RESEND_FROM_EMAIL` is stuck at Resend's shared `onboarding@resend.dev`
+        address (can't send from `@edgelineexports.com` without a verified
+        domain).
+      - Every email (client + team) can only actually be *delivered* to the
+        Resend account's own signup address, regardless of who submitted the
+        form — fine for testing, not usable for real customers yet.
+- [ ] The "View This Vehicle" button in confirmation emails links to
+      `NEXT_PUBLIC_SITE_URL`, which defaults to `https://edgelineexports.com`
+      — a placeholder, since that domain isn't registered/live yet. The link
+      will 404 until either the real domain goes live or `NEXT_PUBLIC_SITE_URL`
+      is pointed at wherever the site is actually deployed (e.g. a Vercel
+      preview URL) in the meantime.
