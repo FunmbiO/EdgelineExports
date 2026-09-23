@@ -112,6 +112,22 @@ export async function getFeaturedVehicle(): Promise<Vehicle | null> {
   }
 }
 
+export async function getAllVehicleSlugs(): Promise<{ slug: string; updatedAt: string }[]> {
+  try {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase
+      .from("vehicles")
+      .select("slug, updated_at")
+      .neq("status", "draft");
+
+    if (error) throw error;
+    return (data ?? []).map((row) => ({ slug: row.slug, updatedAt: row.updated_at }));
+  } catch (err) {
+    console.error("getAllVehicleSlugs failed:", err);
+    return [];
+  }
+}
+
 export async function getVehicleBySlug(slug: string): Promise<Vehicle | null> {
   try {
     const supabase = createPublicClient();
