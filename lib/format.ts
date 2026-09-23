@@ -10,6 +10,12 @@ export function formatMileage(mileage: number): string {
   return `${new Intl.NumberFormat("en-US").format(mileage)} mi`;
 }
 
+export function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  const initials = parts.slice(0, 2).map((part) => part[0]?.toUpperCase() ?? "");
+  return initials.join("") || "?";
+}
+
 export function formatRelativeTime(dateString: string): string {
   const diffMs = Date.now() - new Date(dateString).getTime();
   const diffSeconds = Math.round(diffMs / 1000);

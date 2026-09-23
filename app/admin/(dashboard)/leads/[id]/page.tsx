@@ -1,25 +1,11 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getLeadById, getLatestSubmissionForLead } from "@/lib/leads";
-import { getDisplayableSubmissionFields } from "@/lib/lead-fields";
-import { formatRelativeTime } from "@/lib/format";
+import { getDisplayableSubmissionFields, SOURCE_LABELS } from "@/lib/lead-fields";
+import { formatRelativeTime, getInitials } from "@/lib/format";
 import LeadDetailForm from "@/components/admin/LeadDetailForm";
 
 export const dynamic = "force-dynamic";
-
-const SOURCE_LABELS: Record<string, string> = {
-  sourcing: "Source a Car",
-  sell: "Sell Your Car",
-  contact: "Contact Form",
-  inquiry: "Vehicle Inquiry",
-  report: "Report Request",
-};
-
-function getInitials(name: string): string {
-  const parts = name.trim().split(/\s+/);
-  const initials = parts.slice(0, 2).map((part) => part[0]?.toUpperCase() ?? "");
-  return initials.join("") || "?";
-}
 
 export default async function AdminLeadDetailPage({ params }: { params: { id: string } }) {
   const lead = await getLeadById(params.id);
