@@ -11,6 +11,15 @@ import { formatPrice, formatMileage } from "@/lib/format";
 
 export const revalidate = 60;
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://edgelineexports.com";
+
+const AVAILABILITY_MAP: Record<string, string> = {
+  available: "https://schema.org/InStock",
+  reserved: "https://schema.org/LimitedAvailability",
+  sold: "https://schema.org/SoldOut",
+  draft: "https://schema.org/OutOfStock",
+};
+
 const SPEC_LABELS: Record<string, string> = {
   engine: "Engine",
   transmission: "Transmission",
@@ -58,8 +67,36 @@ export default async function VehicleDetailPage({
   const isSold = vehicle.status === "sold";
   const specEntries = Object.entries(vehicle.specs).filter(([, value]) => value);
 
+  const vehicleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Vehicle",
+    name: `${vehicle.year} ${vehicle.make} ${vehicle.model}`,
+    brand: vehicle.make,
+    model: vehicle.model,
+    vehicleModelDate: String(vehicle.year),
+    mileageFromOdometer: {
+      "@type": "QuantitativeValue",
+      value: vehicle.mileage,
+      unitCode: "SMI",
+    },
+    color: vehicle.color ?? undefined,
+    image: vehicle.images.map((img) => img.url),
+    description: vehicle.description ?? undefined,
+    offers: {
+      "@type": "Offer",
+      price: vehicle.price,
+      priceCurrency: "USD",
+      availability: AVAILABILITY_MAP[vehicle.status],
+      url: `${SITE_URL}/inventory/${vehicle.slug}`,
+    },
+  };
+
   return (
     <div className="bg-edgeline-black">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(vehicleJsonLd) }}
+      />
       <PageHeader
         label="Inventory"
         title={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}

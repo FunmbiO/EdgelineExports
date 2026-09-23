@@ -46,6 +46,19 @@ export const metadata: Metadata = {
   },
 };
 
+// Mirrors exactly what's already shown in the footer — structured data
+// should never say more than the visible page does.
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Edgeline Exports",
+  url: SITE_URL,
+  description: SITE_DESCRIPTION,
+  email: "hello@edgelineexports.com",
+  telephone: "(555) 010-9200",
+  areaServed: "US",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -56,6 +69,10 @@ export default function RootLayout({
       <body
         className={`${bebasNeue.variable} ${barlow.variable} ${barlowCondensed.variable} font-body antialiased bg-edgeline-white text-edgeline-black`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <Nav />
         <main>{children}</main>
         <Footer />
