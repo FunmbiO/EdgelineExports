@@ -18,6 +18,7 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
   const [hpField, setHpField] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,6 +55,7 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
     setIsOpen(false);
     setError(null);
     setReference(null);
+    setNotes("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -65,7 +67,14 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
       const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, vehicleSlug: vehicle.slug, hpField }),
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          notes,
+          vehicleSlug: vehicle.slug,
+          hpField,
+        }),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -225,6 +234,23 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="mt-2 w-full border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-edgeline-white focus:border-edgeline-red focus:outline-none"
+                  />
+                </div>
+
+                <div className="mt-4">
+                  <label
+                    htmlFor="inquiry-notes"
+                    className="block font-condensed text-xs uppercase tracking-wider text-edgeline-white/70"
+                  >
+                    Notes <span className="text-edgeline-white/40">(optional)</span>
+                  </label>
+                  <textarea
+                    id="inquiry-notes"
+                    rows={3}
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder="Anything specific we should know — trade-in, financing, timeline..."
+                    className="mt-2 w-full resize-none border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-sm text-edgeline-white placeholder:text-edgeline-white/30 focus:border-edgeline-red focus:outline-none"
                   />
                 </div>
 

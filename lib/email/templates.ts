@@ -261,6 +261,7 @@ export function inquiryTeamEmail({
   vehicleLabel,
   vehiclePrice,
   vehicleSlug,
+  notes,
   reference,
 }: {
   name: string;
@@ -269,6 +270,7 @@ export function inquiryTeamEmail({
   vehicleLabel: string;
   vehiclePrice: string;
   vehicleSlug: string;
+  notes?: string;
   reference: string;
 }) {
   return {
@@ -285,6 +287,7 @@ export function inquiryTeamEmail({
             ["Vehicle", vehicleLabel],
             ["Price", vehiclePrice],
             ["Listing", vehicleSlug],
+            ["Notes", notes],
             ["Reference", reference],
           ])}
         </table>
