@@ -1,4 +1,5 @@
 const TEAM_EMAIL = process.env.EDGELINE_TEAM_EMAIL ?? "team@edgelineexports.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://edgelineexports.com";
 
 function wrapper(title: string, bodyHtml: string): string {
   return `
@@ -28,6 +29,55 @@ function detailRows(rows: [string, string | undefined][]): string {
       `,
     )
     .join("");
+}
+
+// Checkmark badge used on client-facing "confirmed" emails, echoing the
+// success state of the on-site Inquire/Report modals.
+function confirmedBadge(): string {
+  return `
+    <table role="presentation" style="margin: 0 0 20px;">
+      <tr>
+        <td
+          style="width: 44px; height: 44px; border: 2px solid #c41e2a; border-radius: 50%; text-align: center; vertical-align: middle; font-size: 20px; line-height: 40px; color: #c41e2a; font-weight: bold;"
+        >
+          &#10003;
+        </td>
+      </tr>
+    </table>
+  `;
+}
+
+function vehicleSummaryBox(vehicleLabel: string, vehiclePrice: string): string {
+  return `
+    <table role="presentation" style="width: 100%; border: 1px solid #e5e5e5; margin: 4px 0 20px;">
+      <tr>
+        <td style="padding: 16px 20px;">
+          <p style="margin: 0; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #999;">
+            Vehicle
+          </p>
+          <p style="margin: 6px 0 0; font-size: 16px; color: #0a0a0a; font-weight: bold;">${vehicleLabel}</p>
+          <p style="margin: 4px 0 0; font-size: 18px; color: #c41e2a; font-weight: bold;">${vehiclePrice}</p>
+        </td>
+      </tr>
+    </table>
+  `;
+}
+
+function ctaButton(label: string, href: string): string {
+  return `
+    <table role="presentation" style="margin: 24px 0 4px;">
+      <tr>
+        <td style="background: #c41e2a;">
+          <a
+            href="${href}"
+            style="display: inline-block; padding: 12px 28px; color: #ffffff; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; font-weight: bold;"
+          >
+            ${label}
+          </a>
+        </td>
+      </tr>
+    </table>
+  `;
 }
 
 export function sourcingClientEmail({
@@ -230,25 +280,45 @@ export function contactTeamEmail({
 export function inquiryClientEmail({
   name,
   email,
+  phone,
+  notes,
   vehicleLabel,
+  vehiclePrice,
+  vehicleSlug,
   reference,
 }: {
   name: string;
   email: string;
+  phone?: string;
+  notes?: string;
   vehicleLabel: string;
+  vehiclePrice: string;
+  vehicleSlug: string;
   reference: string;
 }) {
   return {
     to: email,
-    subject: `We've got your inquiry on the ${vehicleLabel} — Edgeline Exports`,
+    subject: `Your inquiry on the ${vehicleLabel} is confirmed — Edgeline Exports`,
     html: wrapper(
-      "Inquiry Received",
+      "Inquiry Confirmed",
       `
+        ${confirmedBadge()}
         <p style="color: #333; font-size: 14px; line-height: 1.6;">Hi ${name},</p>
         <p style="color: #333; font-size: 14px; line-height: 1.6;">
-          Thanks for your interest in the ${vehicleLabel}. Our team will reach out within 24 hours.
+          Your inquiry on the ${vehicleLabel} has been confirmed. Our team will reach out within
+          24 hours — here's a copy of what you submitted.
         </p>
-        <p style="color: #666; font-size: 13px;">Reference: <strong>${reference}</strong></p>
+        ${vehicleSummaryBox(vehicleLabel, vehiclePrice)}
+        <table style="border-collapse: collapse; width: 100%;">
+          ${detailRows([
+            ["Name", name],
+            ["Email", email],
+            ["Phone", phone],
+            ["Notes", notes],
+            ["Reference", reference],
+          ])}
+        </table>
+        ${ctaButton("View This Vehicle", `${SITE_URL}/inventory/${vehicleSlug}`)}
       `,
     ),
   };
@@ -257,26 +327,42 @@ export function inquiryClientEmail({
 export function reportRequestClientEmail({
   name,
   email,
+  phone,
   vehicleLabel,
+  vehiclePrice,
+  vehicleSlug,
   reference,
 }: {
   name: string;
   email: string;
+  phone?: string;
   vehicleLabel: string;
+  vehiclePrice: string;
+  vehicleSlug: string;
   reference: string;
 }) {
   return {
     to: email,
-    subject: `We've got your report request for the ${vehicleLabel} — Edgeline Exports`,
+    subject: `Your report request for the ${vehicleLabel} is confirmed — Edgeline Exports`,
     html: wrapper(
-      "Report Request Received",
+      "Report Request Confirmed",
       `
+        ${confirmedBadge()}
         <p style="color: #333; font-size: 14px; line-height: 1.6;">Hi ${name},</p>
         <p style="color: #333; font-size: 14px; line-height: 1.6;">
-          Thanks for requesting an inspection report on the ${vehicleLabel}. Our team will send it
-          over within 24 hours.
+          Your request for an inspection report on the ${vehicleLabel} has been confirmed. Our
+          team will send it over within 24 hours — here's a copy of what you submitted.
         </p>
-        <p style="color: #666; font-size: 13px;">Reference: <strong>${reference}</strong></p>
+        ${vehicleSummaryBox(vehicleLabel, vehiclePrice)}
+        <table style="border-collapse: collapse; width: 100%;">
+          ${detailRows([
+            ["Name", name],
+            ["Email", email],
+            ["Phone", phone],
+            ["Reference", reference],
+          ])}
+        </table>
+        ${ctaButton("View This Vehicle", `${SITE_URL}/inventory/${vehicleSlug}`)}
       `,
     ),
   };

@@ -90,7 +90,17 @@ export async function POST(request: NextRequest) {
     const reference = `EDG-${submission.id.slice(0, 8).toUpperCase()}`;
 
     await Promise.all([
-      sendEmail(reportRequestClientEmail({ name, email, vehicleLabel, reference })),
+      sendEmail(
+        reportRequestClientEmail({
+          name,
+          email,
+          phone,
+          vehicleLabel,
+          vehiclePrice: vehiclePriceLabel,
+          vehicleSlug,
+          reference,
+        }),
+      ),
       sendEmail(
         reportRequestTeamEmail({
           name,

@@ -24,6 +24,7 @@ The app builds and runs locally without any of these, but pages that touch the d
 | `SUPABASE_SERVICE_ROLE_KEY` | Same page — **server-only**, never expose to the client |
 | `RESEND_API_KEY` | [resend.com/api-keys](https://resend.com/api-keys), once you own/verify a sending domain |
 | `RESEND_FROM_EMAIL`, `EDGELINE_TEAM_EMAIL` | Your real sending address and the inbox that should receive lead notifications |
+| `NEXT_PUBLIC_SITE_URL` | Optional — the live site URL, used for the "View This Vehicle" link in confirmation emails. Defaults to `https://edgelineexports.com` if unset. |
 
 For production you'll also want:
 - A **Vercel** project linked to this repo, with the same env vars set for the Production environment.
