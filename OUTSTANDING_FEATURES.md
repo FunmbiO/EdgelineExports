@@ -58,15 +58,16 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
       `searchParams` for filtering/pagination, which Next.js always treats
       as a dynamic API regardless of a `revalidate` export. True ISR only
       applies to Home, About, and vehicle detail pages.
-- [ ] The vehicle detail page's "Inquire Now" modal has no real customer
-      sign-in to check for — the site only has admin auth. Name/email are
-      remembered via `localStorage` after a first inquiry instead, which is
-      the closest equivalent without building a full customer account
-      system. Revisit if real accounts are ever wanted.
-- [ ] Inquiry emails (like sourcing/sell/contact) go through the same
-      Resend integration that's never been tested with a live API key —
-      the lead + form_submission are created either way, only the actual
-      email delivery is unverified.
+- [ ] The vehicle detail page's "Inquire Now" and "Request Report" modals
+      have no real customer sign-in to check for — the site only has admin
+      auth. Name/email/phone are remembered via `localStorage` after a
+      first submission instead, which is the closest equivalent without
+      building a full customer account system. Revisit if real accounts
+      are ever wanted.
+- [ ] Inquiry and report-request emails (like sourcing/sell/contact) go
+      through the same Resend integration that's never been tested with a
+      live API key — the lead + form_submission are created either way,
+      only the actual email delivery is unverified.
 
 ## Cross-cutting
 
