@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { name, email, vehicleSlug } = parsed.data;
+    const { name, email, phone, vehicleSlug } = parsed.data;
 
     const { data: vehicle, error: vehicleError } = await supabase
       .from("vehicles")
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
 
     const { data: lead, error: leadError } = await supabase
       .from("leads")
-      .insert({ name, email, source: "inquiry" })
+      .insert({ name, email, phone: phone || null, source: "inquiry" })
       .select()
       .single();
 
@@ -70,6 +70,7 @@ export async function POST(request: NextRequest) {
         payload: {
           name,
           email,
+          phone,
           vehicleSlug,
           vehicleMake: vehicle.make,
           vehicleModel: vehicle.model,
@@ -94,6 +95,7 @@ export async function POST(request: NextRequest) {
         inquiryTeamEmail({
           name,
           email,
+          phone,
           vehicleLabel,
           vehiclePrice: vehiclePriceLabel,
           vehicleSlug,

@@ -257,6 +257,7 @@ export function inquiryClientEmail({
 export function inquiryTeamEmail({
   name,
   email,
+  phone,
   vehicleLabel,
   vehiclePrice,
   vehicleSlug,
@@ -264,6 +265,7 @@ export function inquiryTeamEmail({
 }: {
   name: string;
   email: string;
+  phone?: string;
   vehicleLabel: string;
   vehiclePrice: string;
   vehicleSlug: string;
@@ -279,6 +281,7 @@ export function inquiryTeamEmail({
           ${detailRows([
             ["Name", name],
             ["Email", email],
+            ["Phone", phone],
             ["Vehicle", vehicleLabel],
             ["Price", vehiclePrice],
             ["Listing", vehicleSlug],

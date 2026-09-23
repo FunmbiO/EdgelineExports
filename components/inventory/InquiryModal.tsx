@@ -17,6 +17,7 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [hpField, setHpField] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,9 +31,10 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        const parsed = JSON.parse(saved) as { name?: string; email?: string };
+        const parsed = JSON.parse(saved) as { name?: string; email?: string; phone?: string };
         if (parsed.name) setName(parsed.name);
         if (parsed.email) setEmail(parsed.email);
+        if (parsed.phone) setPhone(parsed.phone);
       }
     } catch {
       // localStorage unavailable (private browsing, etc.) — just skip prefill.
@@ -63,7 +65,7 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
       const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, vehicleSlug: vehicle.slug, hpField }),
+        body: JSON.stringify({ name, email, phone, vehicleSlug: vehicle.slug, hpField }),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -73,7 +75,7 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
       }
 
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, email }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, email, phone }));
       } catch {
         // ignore — not critical if this fails
       }
@@ -205,6 +207,23 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    className="mt-2 w-full border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-edgeline-white focus:border-edgeline-red focus:outline-none"
+                  />
+                </div>
+
+                <div className="mt-4">
+                  <label
+                    htmlFor="inquiry-phone"
+                    className="block font-condensed text-xs uppercase tracking-wider text-edgeline-white/70"
+                  >
+                    Phone <span className="text-edgeline-white/40">(optional)</span>
+                  </label>
+                  <input
+                    id="inquiry-phone"
+                    type="tel"
+                    autoComplete="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     className="mt-2 w-full border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-edgeline-white focus:border-edgeline-red focus:outline-none"
                   />
                 </div>
