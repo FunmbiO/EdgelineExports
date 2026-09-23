@@ -24,8 +24,8 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
 - [ ] Pagination is simple offset-based (`page` query param), not true
       keyset/cursor pagination as the sprint plan specified — a reasonable
       simplification for a small catalog, but worth knowing.
-- [ ] Dynamic OG image generation (per-vehicle social share images) not
-      done — explicitly Sprint 5 scope; only basic meta tags exist now.
+- [x] Dynamic OG image generation — done in Sprint 5 (site default +
+      per-vehicle, via next/og).
 - [ ] Never visually verified with real photos, only placeholder/empty
       states.
 
@@ -70,6 +70,38 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
       card, full submitted-details table, "View This Vehicle" button) and
       confirmed delivering live through Resend.
 
+## Sprint 5 — Polish, Performance & SEO
+
+- [x] `metadataBase`, a title template, and default OpenGraph/Twitter card
+      metadata added to the root layout; every page's title de-duplicated
+      against the new template.
+- [x] `robots.txt` and a dynamic `sitemap.xml` (static routes + every
+      non-draft vehicle, pulled live from Supabase).
+- [x] JSON-LD structured data: an `Organization` schema site-wide
+      (mirrors the footer's contact info exactly) and a `Vehicle`/`Offer`
+      schema on every vehicle detail page.
+- [x] Dynamic OG images — a branded site default and a per-vehicle one
+      showing year/make/model, mileage, and price, generated via
+      `next/og`.
+- [x] Branded favicon + apple-touch-icon — a stylized red "E" mark on
+      black, since there's still no real logo (see Sprint 1).
+- [x] A custom 404 page matching the site's theme, plus loading skeletons
+      for `/inventory` and `/inventory/[slug]` so navigation doesn't
+      flash blank while data loads.
+- [ ] No Lighthouse/Core Web Vitals audit was actually run — the above
+      are the standard high-value SEO/polish items, not a measured
+      performance pass. Worth running once the site is live on a real
+      domain.
+- [ ] No analytics wired up (no Google Analytics / Vercel Analytics —
+      no keys/account to wire them to yet).
+- [ ] No accessibility audit — alt text and semantic markup were done
+      in passing where touched, not systematically reviewed site-wide.
+- [ ] The sitemap and per-vehicle OG images depend on live Supabase
+      data. Verified structurally (they degrade gracefully — empty
+      vehicle list / fallback image — when the DB is unreachable, which
+      is all that could be tested in this sandbox) but never checked
+      against real vehicle records.
+
 ## Cross-cutting
 
 - [x] Admin auth — added in Sprint 4 (Supabase Auth + middleware gating
@@ -82,6 +114,11 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
       `active` are still sitting at `new` in the live DB — the default only
       applies to new inserts. A one-time bulk update would be needed to
       bring existing leads in line, if wanted.
+- [ ] `npm audit` flags several vulnerabilities in Next.js 14.2.35
+      (one critical) — the fix requires a major-version bump to Next 16,
+      which is a breaking change (App Router / React version implications)
+      deliberately not attempted as a drive-by fix. Deserves its own
+      dedicated upgrade-and-test pass.
 
 ## Email
 
