@@ -22,10 +22,28 @@ const barlowCondensed = Barlow_Condensed({
   variable: "--font-barlow-condensed",
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://edgelineexports.com";
+const SITE_DESCRIPTION =
+  "Edgeline Exports is an online-only dealership that buys, sells, and sources vehicles nationwide.";
+
 export const metadata: Metadata = {
-  title: "Edgeline Exports | Driven by Value",
-  description:
-    "Edgeline Exports is an online-only dealership that buys, sells, and sources vehicles nationwide.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Edgeline Exports | Driven by Value",
+    template: "%s | Edgeline Exports",
+  },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    siteName: "Edgeline Exports",
+    title: "Edgeline Exports | Driven by Value",
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Edgeline Exports | Driven by Value",
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({

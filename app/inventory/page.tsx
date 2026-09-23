@@ -10,7 +10,7 @@ import { INVENTORY_FILTERS, type InventoryFilter } from "@/types/vehicle";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Inventory | Edgeline Exports",
+  title: "Inventory",
   description: "Browse Edgeline Exports' current vehicle inventory — available, reserved, and recently sold.",
 };
 

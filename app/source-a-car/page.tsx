@@ -3,7 +3,7 @@ import PageHeader from "@/components/layout/PageHeader";
 import SourceACarForm from "@/components/forms/SourceACarForm";
 
 export const metadata: Metadata = {
-  title: "Source a Car | Edgeline Exports",
+  title: "Source a Car",
   description: "Tell us what you're looking for and we'll find it.",
 };
 

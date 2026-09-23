@@ -8,7 +8,7 @@ import { getFeaturedTestimonials } from "@/lib/testimonials";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "About | Edgeline Exports",
+  title: "About",
   description: "Learn about Edgeline Exports, our story, and our team.",
 };
 

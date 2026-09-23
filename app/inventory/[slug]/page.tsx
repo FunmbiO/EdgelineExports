@@ -24,9 +24,9 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const vehicle = await getVehicleBySlug(params.slug);
-  if (!vehicle) return { title: "Vehicle Not Found | Edgeline Exports" };
+  if (!vehicle) return { title: "Vehicle Not Found" };
 
-  const title = `${vehicle.year} ${vehicle.make} ${vehicle.model} | Edgeline Exports`;
+  const title = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
   const description =
     vehicle.description ??
     `${vehicle.year} ${vehicle.make} ${vehicle.model} — ${formatMileage(vehicle.mileage)}, ${formatPrice(vehicle.price)}.`;
@@ -34,7 +34,16 @@ export async function generateMetadata({
   return {
     title,
     description,
-    openGraph: { title, description },
+    alternates: { canonical: `/inventory/${vehicle.slug}` },
+    openGraph: {
+      title: `${title} | Edgeline Exports`,
+      description,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Edgeline Exports`,
+      description,
+    },
   };
 }
 

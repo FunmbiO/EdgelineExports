@@ -3,7 +3,7 @@ import PageHeader from "@/components/layout/PageHeader";
 import ContactForm from "@/components/forms/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact | Edgeline Exports",
+  title: "Contact",
   description: "Get in touch with Edgeline Exports.",
 };
 

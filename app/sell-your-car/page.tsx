@@ -4,7 +4,7 @@ import ComparisonCard from "@/components/sell/ComparisonCard";
 import SellYourCarForm from "@/components/forms/SellYourCarForm";
 
 export const metadata: Metadata = {
-  title: "Sell Your Car | Edgeline Exports",
+  title: "Sell Your Car",
   description: "Outright purchase or consignment — sell your car to Edgeline Exports.",
 };
 
