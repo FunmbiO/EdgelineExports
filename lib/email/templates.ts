@@ -226,3 +226,66 @@ export function contactTeamEmail({
     ),
   };
 }
+
+export function inquiryClientEmail({
+  name,
+  email,
+  vehicleLabel,
+  reference,
+}: {
+  name: string;
+  email: string;
+  vehicleLabel: string;
+  reference: string;
+}) {
+  return {
+    to: email,
+    subject: `We've got your inquiry on the ${vehicleLabel} — Edgeline Exports`,
+    html: wrapper(
+      "Inquiry Received",
+      `
+        <p style="color: #333; font-size: 14px; line-height: 1.6;">Hi ${name},</p>
+        <p style="color: #333; font-size: 14px; line-height: 1.6;">
+          Thanks for your interest in the ${vehicleLabel}. Our team will reach out within 24 hours.
+        </p>
+        <p style="color: #666; font-size: 13px;">Reference: <strong>${reference}</strong></p>
+      `,
+    ),
+  };
+}
+
+export function inquiryTeamEmail({
+  name,
+  email,
+  vehicleLabel,
+  vehiclePrice,
+  vehicleSlug,
+  reference,
+}: {
+  name: string;
+  email: string;
+  vehicleLabel: string;
+  vehiclePrice: string;
+  vehicleSlug: string;
+  reference: string;
+}) {
+  return {
+    to: TEAM_EMAIL,
+    subject: `New inquiry — ${vehicleLabel} (${reference})`,
+    html: wrapper(
+      "New Vehicle Inquiry",
+      `
+        <table style="border-collapse: collapse; width: 100%;">
+          ${detailRows([
+            ["Name", name],
+            ["Email", email],
+            ["Vehicle", vehicleLabel],
+            ["Price", vehiclePrice],
+            ["Listing", vehicleSlug],
+            ["Reference", reference],
+          ])}
+        </table>
+      `,
+    ),
+  };
+}

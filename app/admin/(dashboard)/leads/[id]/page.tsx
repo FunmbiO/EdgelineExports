@@ -11,6 +11,7 @@ const SOURCE_LABELS: Record<string, string> = {
   sourcing: "Source a Car",
   sell: "Sell Your Car",
   contact: "Contact Form",
+  inquiry: "Vehicle Inquiry",
 };
 
 function getInitials(name: string): string {
@@ -25,6 +26,10 @@ export default async function AdminLeadDetailPage({ params }: { params: { id: st
 
   const submission = await getLatestSubmissionForLead(lead.id);
   const fields = submission ? getDisplayableSubmissionFields(submission.payload) : [];
+  const vehicleSlug =
+    submission?.type === "inquiry" && typeof submission.payload.vehicleSlug === "string"
+      ? submission.payload.vehicleSlug
+      : null;
 
   return (
     <div>
@@ -94,9 +99,19 @@ export default async function AdminLeadDetailPage({ params }: { params: { id: st
 
             {fields.length > 0 ? (
               <>
-                <h2 className="mt-8 font-condensed text-sm uppercase tracking-wider text-edgeline-red">
-                  Submission Details
-                </h2>
+                <div className="mt-8 flex items-center justify-between">
+                  <h2 className="font-condensed text-sm uppercase tracking-wider text-edgeline-red">
+                    Submission Details
+                  </h2>
+                  {vehicleSlug && (
+                    <Link
+                      href={`/inventory/${vehicleSlug}`}
+                      className="font-condensed text-xs uppercase tracking-wider text-edgeline-white/60 hover:text-edgeline-red"
+                    >
+                      View Vehicle Listing →
+                    </Link>
+                  )}
+                </div>
                 <dl className="mt-4 grid gap-4 sm:grid-cols-2">
                   {fields.map((field) => (
                     <div key={field.label} className={field.multiline ? "sm:col-span-2" : undefined}>
