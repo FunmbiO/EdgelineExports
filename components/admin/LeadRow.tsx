@@ -4,67 +4,95 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { Lead, LeadStatus } from "@/types/lead";
-
-const STATUS_OPTIONS: LeadStatus[] = ["new", "contacted", "active", "closed"];
+import { SOURCE_LABELS, SOURCE_BADGE_CLASS } from "@/lib/lead-fields";
+import { STATUS_OPTIONS, STATUS_SELECTED_CLASS } from "@/lib/lead-status";
+import { getInitials, formatRelativeTime } from "@/lib/format";
 
 export default function LeadRow({ lead }: { lead: Lead }) {
   const router = useRouter();
   const [status, setStatus] = useState(lead.status);
   const [notes, setNotes] = useState(lead.notes ?? "");
-  const [isSaving, setIsSaving] = useState(false);
+  const [isSavingStatus, setIsSavingStatus] = useState(false);
+  const [isSavingNotes, setIsSavingNotes] = useState(false);
 
   const save = async (patch: Partial<{ status: LeadStatus; notes: string }>) => {
-    setIsSaving(true);
     await fetch(`/api/admin/leads/${lead.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(patch),
     });
-    setIsSaving(false);
     router.refresh();
   };
 
   return (
-    <tr className="border-b border-edgeline-border align-top last:border-0">
-      <td className="px-4 py-3 font-body text-edgeline-white">
-        <Link href={`/admin/leads/${lead.id}`} className="hover:text-edgeline-red">
-          {lead.name}
-        </Link>
-        <p className="text-xs text-edgeline-white/50">{lead.email}</p>
-        {lead.phone && <p className="text-xs text-edgeline-white/50">{lead.phone}</p>}
-      </td>
-      <td className="px-4 py-3 font-condensed text-xs uppercase tracking-wider text-edgeline-white/60">
-        {lead.source}
+    <tr className="border-b border-edgeline-border align-top transition-colors last:border-0 hover:bg-edgeline-white/[0.03]">
+      <td className="px-4 py-3">
+        <div className="flex items-start gap-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-edgeline-red/40 font-display text-xs text-edgeline-red">
+            {getInitials(lead.name)}
+          </div>
+          <div>
+            <Link
+              href={`/admin/leads/${lead.id}`}
+              className="font-body text-edgeline-white hover:text-edgeline-red"
+            >
+              {lead.name}
+            </Link>
+            <p className="text-xs text-edgeline-white/50">{lead.email}</p>
+            {lead.phone && <p className="text-xs text-edgeline-white/50">{lead.phone}</p>}
+          </div>
+        </div>
       </td>
       <td className="px-4 py-3">
-        <select
-          value={status}
-          onChange={(e) => {
-            const next = e.target.value as LeadStatus;
-            setStatus(next);
-            save({ status: next });
-          }}
-          disabled={isSaving}
-          className="border border-edgeline-border bg-edgeline-black px-2 py-1 font-condensed text-xs uppercase tracking-wider text-edgeline-white"
+        <span
+          className={`inline-block whitespace-nowrap border px-2.5 py-1 font-condensed text-xs uppercase tracking-wider ${
+            SOURCE_BADGE_CLASS[lead.source] ?? "border-edgeline-white/30 text-edgeline-white/70"
+          }`}
         >
-          {STATUS_OPTIONS.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
+          {SOURCE_LABELS[lead.source] ?? lead.source}
+        </span>
+      </td>
+      <td className="px-4 py-3">
+        <div
+          className={`inline-flex items-center border px-2.5 py-1.5 transition-opacity ${
+            STATUS_SELECTED_CLASS[status]
+          } ${isSavingStatus ? "opacity-60" : ""}`}
+        >
+          <select
+            value={status}
+            onChange={(e) => {
+              const next = e.target.value as LeadStatus;
+              setStatus(next);
+              setIsSavingStatus(true);
+              save({ status: next }).finally(() => setIsSavingStatus(false));
+            }}
+            disabled={isSavingStatus}
+            className="bg-transparent font-condensed text-xs uppercase tracking-wider focus:outline-none disabled:cursor-not-allowed [&>option]:bg-edgeline-black [&>option]:text-edgeline-white"
+          >
+            {STATUS_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </td>
       <td className="px-4 py-3">
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          onBlur={() => save({ notes })}
+          onBlur={() => {
+            setIsSavingNotes(true);
+            save({ notes }).finally(() => setIsSavingNotes(false));
+          }}
           rows={2}
-          className="w-full resize-none border border-edgeline-border bg-edgeline-black px-2 py-1 font-body text-xs text-edgeline-white"
+          placeholder="Add a note..."
+          disabled={isSavingNotes}
+          className="w-full min-w-[10rem] resize-none border border-edgeline-border bg-edgeline-black px-2 py-1.5 font-body text-xs text-edgeline-white placeholder:text-edgeline-white/30 focus:border-edgeline-red focus:outline-none disabled:opacity-60"
         />
       </td>
       <td className="px-4 py-3 font-body text-xs text-edgeline-white/50">
-        {new Date(lead.createdAt).toLocaleDateString()}
+        {formatRelativeTime(lead.createdAt)}
       </td>
     </tr>
   );

@@ -1,3 +1,22 @@
+export const SOURCE_LABELS: Record<string, string> = {
+  sourcing: "Source a Car",
+  sell: "Sell Your Car",
+  contact: "Contact Form",
+  inquiry: "Vehicle Inquiry",
+  report: "Report Request",
+};
+
+// Vehicle-specific, higher-intent sources get a filled red badge; general
+// form submissions get a quieter outline — keeps the black/red/white
+// palette instead of introducing new hues to tell sources apart.
+export const SOURCE_BADGE_CLASS: Record<string, string> = {
+  inquiry: "border-edgeline-red bg-edgeline-red/10 text-edgeline-red",
+  report: "border-edgeline-red bg-edgeline-red/10 text-edgeline-red",
+  sourcing: "border-edgeline-white/30 text-edgeline-white/70",
+  sell: "border-edgeline-white/30 text-edgeline-white/70",
+  contact: "border-edgeline-white/30 text-edgeline-white/70",
+};
+
 const LEAD_FIELD_LABELS: Record<string, string> = {
   location: "Location",
   make: "Make",

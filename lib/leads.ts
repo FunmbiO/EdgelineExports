@@ -43,6 +43,24 @@ export async function getLeads(status?: LeadStatus): Promise<Lead[]> {
   }
 }
 
+export async function getLeadStatusCounts(): Promise<Record<LeadStatus, number> & { all: number }> {
+  const counts = { all: 0, new: 0, contacted: 0, active: 0, closed: 0 };
+  try {
+    const supabase = createAdminClient();
+    const { data, error } = await supabase.from("leads").select("status");
+    if (error) throw error;
+
+    for (const row of (data as { status: LeadStatus }[] | null) ?? []) {
+      counts.all += 1;
+      counts[row.status] += 1;
+    }
+    return counts;
+  } catch (err) {
+    console.error("getLeadStatusCounts failed:", err);
+    return counts;
+  }
+}
+
 export async function getLeadById(id: string): Promise<Lead | null> {
   try {
     const supabase = createAdminClient();
