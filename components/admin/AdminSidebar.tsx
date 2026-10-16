@@ -3,7 +3,7 @@ import Link from "next/link";
 const LINKS = [
   { href: "/admin/inventory", label: "Inventory" },
   { href: "/admin/leads", label: "Leads" },
-  { href: "/admin/email", label: "Send Email" },
+  { href: "/admin/testimonials", label: "Testimonials" },
 ];
 
 export default function AdminSidebar() {

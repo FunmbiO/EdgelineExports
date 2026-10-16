@@ -41,10 +41,8 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
 
 ## Sprint 4 — Content Pages & Admin CMS
 
-- [ ] Testimonials table + public API exist, but there's no admin UI to add
-      them — for now they can only be inserted directly in Supabase. The
-      homepage/About testimonials sections correctly hide themselves when
-      empty, so this isn't breaking anything, just a manual step.
+- [x] Admin testimonials CRUD — `/admin/testimonials` (list, add, edit,
+      publish/unpublish, delete), done post-Sprint-5.
 - [ ] Contact form only stores a `form_submission`, not a `lead` — a
       deliberate scope choice (a general contact message isn't necessarily a
       sales lead), but worth confirming that's the intended behavior.
