@@ -102,6 +102,25 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
       is all that could be tested in this sandbox) but never checked
       against real vehicle records.
 
+## Post-Sprint-5
+
+- [ ] The three requested brand fonts (Know, Salty Ages, Lust) are paid
+      marketplace fonts — using free Google Fonts stand-ins (Plus Jakarta
+      Sans, Fraunces, Permanent Marker) until real licensed files are
+      supplied. Swapping them in later is a one-line change per font in
+      `app/layout.tsx`.
+- [x] Admin branded email composer — `/admin/email`, sends to any
+      client address with a sent-history log (`sent_emails` table).
+- [ ] Can't literally send "from" edgelineexports@gmail.com — Resend
+      requires a verified domain to send from, and gmail.com isn't one.
+      The composer sends from the existing `RESEND_FROM_EMAIL` with
+      `EDGELINE_REPLY_TO_EMAIL` (edgelineexports@gmail.com) as Reply-To
+      instead, so replies still land in that inbox.
+- [ ] Sending to arbitrary client addresses from the composer won't
+      actually deliver until Resend is out of sandbox mode (a real
+      domain is verified) — same sandbox restriction as every other
+      email in the app.
+
 ## Cross-cutting
 
 - [x] Admin auth — added in Sprint 4 (Supabase Auth + middleware gating
