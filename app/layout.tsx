@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Barlow, Barlow_Condensed } from "next/font/google";
+import {
+  Bebas_Neue,
+  Barlow_Condensed,
+  Plus_Jakarta_Sans,
+  Fraunces,
+  Permanent_Marker,
+} from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
@@ -10,16 +16,34 @@ const bebasNeue = Bebas_Neue({
   variable: "--font-bebas-neue",
 });
 
-const barlow = Barlow({
+// Stand-in for the licensed "Know" font — clean, modern, versatile sans
+// serif, used for body copy. Replaced Barlow in that role.
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-barlow",
+  variable: "--font-plus-jakarta-sans",
 });
 
 const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-barlow-condensed",
+});
+
+// Stand-in for the licensed "Salty Ages" font — bold retro serif, used
+// sparingly for showcase headlines (not a blanket display-font swap).
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-fraunces",
+});
+
+// Stand-in for the licensed "Lust" font — handwritten brush accent, used
+// only for small decorative flourishes, never body copy or nav/labels.
+const permanentMarker = Permanent_Marker({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-permanent-marker",
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://edgelineexports.com";
@@ -67,7 +91,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${bebasNeue.variable} ${barlow.variable} ${barlowCondensed.variable} font-body antialiased bg-edgeline-white text-edgeline-black`}
+        className={`${bebasNeue.variable} ${plusJakartaSans.variable} ${barlowCondensed.variable} ${fraunces.variable} ${permanentMarker.variable} font-body antialiased bg-edgeline-white text-edgeline-black`}
       >
         <script
           type="application/ld+json"
