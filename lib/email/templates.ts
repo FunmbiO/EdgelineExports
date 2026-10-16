@@ -6,10 +6,8 @@ function wrapper(title: string, bodyHtml: string): string {
     <div style="font-family: Arial, Helvetica, sans-serif; background: #0a0a0a; padding: 32px;">
       <div style="max-width: 560px; margin: 0 auto; background: #ffffff; border-top: 3px solid #c41e2a;">
         <div style="padding: 24px 32px;">
-          <p style="margin: 0; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #c41e2a; font-weight: bold;">
-            Edgeline Exports
-          </p>
-          <h1 style="margin: 8px 0 24px; font-size: 22px; color: #0a0a0a;">${title}</h1>
+          <img src="${SITE_URL}/logo.png" alt="Edgeline Exports" width="141" height="75" style="display: block; margin: 0 0 16px;" />
+          <h1 style="margin: 0 0 24px; font-size: 22px; color: #0a0a0a;">${title}</h1>
           ${bodyHtml}
         </div>
       </div>

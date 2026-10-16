@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt = "Edgeline Exports — Driven by Value";
@@ -5,6 +7,8 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
+  const logo = readFileSync(join(process.cwd(), "public/logo-dark-bg.png")).toString("base64");
+
   return new ImageResponse(
     (
       <div
@@ -19,10 +23,8 @@ export default async function Image() {
         }}
       >
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 10, backgroundColor: "#c41e2a" }} />
-        <div style={{ display: "flex", fontSize: 84, fontWeight: 700, color: "#ffffff", letterSpacing: 4 }}>
-          EDGELINE
-          <span style={{ color: "#c41e2a", marginLeft: 24 }}>EXPORTS</span>
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`data:image/png;base64,${logo}`} width={520} height={277} alt="" />
         <div
           style={{
             display: "flex",
