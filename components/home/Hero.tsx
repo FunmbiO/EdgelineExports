@@ -17,7 +17,7 @@ export default function Hero() {
           <p className="font-condensed text-sm uppercase tracking-[0.3em] text-edgeline-red">
             Online-Only Dealership
           </p>
-          <h1 className="mt-4 font-display text-6xl leading-none text-edgeline-white sm:text-7xl md:text-8xl">
+          <h1 className="mt-4 font-retro text-6xl font-bold leading-none text-edgeline-white sm:text-7xl md:text-8xl">
             Driven by <span className="text-edgeline-red">Value</span>.
           </h1>
           <p className="mt-6 max-w-lg font-body text-lg text-edgeline-white/70">
