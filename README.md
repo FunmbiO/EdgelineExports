@@ -25,6 +25,7 @@ The app builds and runs locally without any of these, but pages that touch the d
 | `RESEND_API_KEY` | [resend.com/api-keys](https://resend.com/api-keys), once you own/verify a sending domain |
 | `RESEND_FROM_EMAIL`, `EDGELINE_TEAM_EMAIL` | Your real sending address and the inbox that should receive lead notifications |
 | `NEXT_PUBLIC_SITE_URL` | Optional — the live site URL, used for the "View This Vehicle" link in confirmation emails. Defaults to `https://edgelineexports.com` if unset. |
+| `EDGELINE_REPLY_TO_EMAIL` | Optional — the Reply-To address on emails sent from the admin dashboard's email composer. Defaults to `edgelineexports@gmail.com`. Safe to be a real inbox even in Resend sandbox mode, since Reply-To isn't a delivery target Resend restricts. |
 
 For production you'll also want:
 - A **Vercel** project linked to this repo, with the same env vars set for the Production environment.

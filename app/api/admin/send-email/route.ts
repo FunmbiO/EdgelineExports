@@ -7,7 +7,12 @@ import { customAdminEmail } from "@/lib/email/templates";
 
 export const dynamic = "force-dynamic";
 
-const TEAM_EMAIL = process.env.EDGELINE_TEAM_EMAIL ?? "team@edgelineexports.com";
+// Separate from EDGELINE_TEAM_EMAIL on purpose: that var is the "to" address
+// for lead-notification emails, which in Resend's sandbox mode must be the
+// account owner's own signup email. Reply-To isn't a delivery target Resend
+// validates, so it can safely be the real business inbox regardless of
+// sandbox mode.
+const REPLY_TO_EMAIL = process.env.EDGELINE_REPLY_TO_EMAIL ?? "edgelineexports@gmail.com";
 
 export async function POST(request: NextRequest) {
   const user = await requireAdminUser();
@@ -30,7 +35,7 @@ export async function POST(request: NextRequest) {
 
   const result = await sendEmail({
     ...customAdminEmail({ to, subject, message }),
-    replyTo: TEAM_EMAIL,
+    replyTo: REPLY_TO_EMAIL,
   });
 
   const { error: logError } = await supabase.from("sent_emails").insert({
