@@ -1,23 +1,29 @@
 import type { Metadata } from "next";
 import {
-  Bebas_Neue,
+  Abril_Fatface,
+  Yeseva_One,
   Barlow_Condensed,
   Plus_Jakarta_Sans,
-  Fraunces,
-  Permanent_Marker,
+  Rock_Salt,
 } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 
-const bebasNeue = Bebas_Neue({
+// Primary display face — bold editorial headlines across the site.
+const abrilFatface = Abril_Fatface({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-bebas-neue",
+  variable: "--font-abril-fatface",
 });
 
-// Stand-in for the licensed "Know" font — clean, modern, versatile sans
-// serif, used for body copy. Replaced Barlow in that role.
+// Secondary heading face — page titles and section headers.
+const yesevaOne = Yeseva_One({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-yeseva-one",
+});
+
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -30,20 +36,12 @@ const barlowCondensed = Barlow_Condensed({
   variable: "--font-barlow-condensed",
 });
 
-// Stand-in for the licensed "Salty Ages" font — bold retro serif, used
-// sparingly for showcase headlines (not a blanket display-font swap).
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-fraunces",
-});
-
-// Stand-in for the licensed "Lust" font — handwritten brush accent, used
-// only for small decorative flourishes, never body copy or nav/labels.
-const permanentMarker = Permanent_Marker({
+// Decorative brush accent — used only for small flourishes, never body
+// copy or anything that needs to stay legible small.
+const rockSalt = Rock_Salt({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-permanent-marker",
+  variable: "--font-rock-salt",
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://edgelineexports.com";
@@ -91,7 +89,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${bebasNeue.variable} ${plusJakartaSans.variable} ${barlowCondensed.variable} ${fraunces.variable} ${permanentMarker.variable} font-body antialiased bg-edgeline-white text-edgeline-black`}
+        className={`${abrilFatface.variable} ${yesevaOne.variable} ${plusJakartaSans.variable} ${barlowCondensed.variable} ${rockSalt.variable} font-body antialiased bg-edgeline-white text-edgeline-black`}
       >
         <script
           type="application/ld+json"

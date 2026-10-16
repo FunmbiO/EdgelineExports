@@ -30,15 +30,13 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-bebas-neue)", "sans-serif"],
+        display: ["var(--font-abril-fatface)", "serif"],
+        heading: ["var(--font-yeseva-one)", "serif"],
         body: ["var(--font-plus-jakarta-sans)", "sans-serif"],
         condensed: ["var(--font-barlow-condensed)", "sans-serif"],
-        // "Salty Ages" stand-in (bold retro serif) — used sparingly for
-        // showcase headlines, not a blanket replacement of font-display.
-        retro: ["var(--font-fraunces)", "serif"],
-        // "Lust" stand-in (handwritten brush) — decorative accent only,
-        // never body copy or anything that needs to stay legible small.
-        accent: ["var(--font-permanent-marker)", "cursive"],
+        // Decorative brush accent only — never body copy or anything that
+        // needs to stay legible small.
+        accent: ["var(--font-rock-salt)", "cursive"],
       },
       spacing: {
         18: "4.5rem",
