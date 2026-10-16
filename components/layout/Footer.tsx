@@ -26,7 +26,7 @@ export default function Footer() {
           <p className="font-display text-xl tracking-wide text-edgeline-white">
             EDGELINE <span className="text-edgeline-red">EXPORTS</span>
           </p>
-          <p className="mt-3 font-body text-sm">Driven by Value.</p>
+          <p className="mt-3 font-accent text-xl text-edgeline-red">Driven by Value.</p>
         </div>
 
         <div>
