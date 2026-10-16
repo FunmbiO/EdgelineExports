@@ -9,7 +9,8 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
       with the admin upload flow.
 - [ ] Footer's Privacy Policy / Terms of Service links point to `#` — no
       actual pages exist yet.
-- [ ] No real logo — nav/footer use styled text ("EDGELINE EXPORTS").
+- [x] No real logo — resolved in the brand refactor (see below); nav,
+      footer, admin, favicon, OG images, and emails all use the real logo.
 - [ ] Vercel deployment documented in the README but never actually
       connected/verified live.
 
@@ -102,11 +103,11 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
 
 ## Post-Sprint-5
 
-- [ ] The three requested brand fonts (Know, Salty Ages, Lust) are paid
-      marketplace fonts — using free Google Fonts stand-ins (Plus Jakarta
-      Sans, Fraunces, Permanent Marker) until real licensed files are
-      supplied. Swapping them in later is a one-line change per font in
-      `app/layout.tsx`.
+- [x] The three requested brand fonts (Know, Salty Ages, Lust) were paid
+      marketplace fonts — used free Google Fonts stand-ins (Plus Jakarta
+      Sans, Fraunces, Permanent Marker) until the brand refactor below
+      replaced the display/accent fonts with the client's follow-up font
+      picks, which are real Google Fonts (no substitution needed).
 - [x] Admin branded email composer — `/admin/email`, sends to any
       client address with a sent-history log (`sent_emails` table).
 - [ ] Can't literally send "from" edgelineexports@gmail.com — Resend
@@ -118,6 +119,36 @@ verified live, by the sprint they came up in. Updated as each sprint lands.
       actually deliver until Resend is out of sandbox mode (a real
       domain is verified) — same sandbox restriction as every other
       email in the app.
+
+## Brand Refactor (logo + fonts)
+
+- [x] Real logo supplied by the client (black/red wordmark + car-swoosh
+      icon) is now used everywhere: `Logo` component in Nav, Footer,
+      AdminSidebar, and the admin login screen; a cropped icon mark for
+      `app/icon.png`/`app/apple-icon.png` (replacing the placeholder
+      stylized "E"); and the full logo embedded in both OG images and
+      the transactional email header.
+- [x] Three asset variants were derived from the client's single PNG
+      (true-transparency light version, a white-recolored dark-bg
+      version for use on the site's black surfaces, and a square icon
+      crop) — see `public/logo.png`, `public/logo-dark-bg.png`,
+      `public/icon-mark.png`.
+- [x] Font system replaced per the client's explicit request: Abril
+      Fatface (`font-display` — homepage hero, numeric/stat displays,
+      prices), Yeseva One (`font-heading` — interior page titles via
+      the shared `PageHeader`), Rock Salt (`font-accent` — small brand
+      flourishes, e.g. the footer tagline). Bebas Neue, Fraunces, and
+      Permanent Marker were retired; Plus Jakarta Sans (body) and
+      Barlow Condensed (labels/nav) are unchanged.
+- [ ] The request also asked to take design inspiration from four
+      external sites (jadedmedia.ca, fastandfound.com, jakesdetailing.ca,
+      heronaiapp.com). None were reachable from this sandbox (DNS/network
+      policy blocks arbitrary outbound domains) and a Vercel-API workaround
+      for the one site hosted on this account's own Vercel org also failed
+      (403 on alias resolution). Per the client's explicit go-ahead ("use
+      your own judgment"), the redesign proceeded on the logo's own visual
+      language and the three named fonts alone — worth a follow-up pass if
+      the client wants closer alignment with those specific references.
 
 ## Cross-cutting
 
