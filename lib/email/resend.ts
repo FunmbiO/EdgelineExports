@@ -13,22 +13,28 @@ export async function sendEmail(params: {
   to: string;
   subject: string;
   html: string;
-}): Promise<void> {
+  replyTo?: string;
+}): Promise<{ ok: boolean; error?: string }> {
   const resend = getClient();
 
   if (!resend) {
-    console.warn(`RESEND_API_KEY not set — skipping email "${params.subject}" to ${params.to}`);
-    return;
+    const warning = `RESEND_API_KEY not set — skipping email "${params.subject}" to ${params.to}`;
+    console.warn(warning);
+    return { ok: false, error: warning };
   }
 
   try {
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL ?? "leads@edgelineexports.com",
       to: params.to,
       subject: params.subject,
       html: params.html,
+      ...(params.replyTo ? { replyTo: params.replyTo } : {}),
     });
+    if (error) throw error;
+    return { ok: true };
   } catch (err) {
     console.error("Failed to send email:", err);
+    return { ok: false, error: err instanceof Error ? err.message : "Failed to send email" };
   }
 }

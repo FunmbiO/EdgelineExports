@@ -17,6 +17,15 @@ function wrapper(title: string, bodyHtml: string): string {
   `;
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function detailRows(rows: [string, string | undefined][]): string {
   return rows
     .filter(([, value]) => value)
@@ -444,6 +453,30 @@ export function inquiryTeamEmail({
             ["Reference", reference],
           ])}
         </table>
+      `,
+    ),
+  };
+}
+
+// A one-off branded email the admin writes and sends to a client from the
+// dashboard — free text, so it's escaped and line breaks are preserved
+// rather than parsed as HTML.
+export function customAdminEmail({
+  to,
+  subject,
+  message,
+}: {
+  to: string;
+  subject: string;
+  message: string;
+}) {
+  return {
+    to,
+    subject,
+    html: wrapper(
+      subject,
+      `
+        <div style="color: #333; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(message)}</div>
       `,
     ),
   };
