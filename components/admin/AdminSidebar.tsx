@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/layout/Logo";
 
 const LINKS = [
   { href: "/admin/inventory", label: "Inventory" },
@@ -10,10 +11,8 @@ export default function AdminSidebar() {
   return (
     <aside className="hidden w-56 shrink-0 border-r border-edgeline-border md:block">
       <div className="p-6">
-        <p className="font-display text-xl text-edgeline-white">
-          EDGELINE <span className="text-edgeline-red">EXPORTS</span>
-        </p>
-        <p className="mt-1 font-condensed text-xs uppercase tracking-wider text-edgeline-white/40">
+        <Logo className="h-8 w-auto" />
+        <p className="mt-2 font-condensed text-xs uppercase tracking-wider text-edgeline-white/40">
           Admin
         </p>
       </div>

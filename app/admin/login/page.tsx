@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import Logo from "@/components/layout/Logo";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -39,10 +40,8 @@ export default function AdminLoginPage() {
         onSubmit={onSubmit}
         className="w-full max-w-sm border border-edgeline-border bg-edgeline-black p-8"
       >
-        <p className="font-display text-2xl text-edgeline-white">
-          EDGELINE <span className="text-edgeline-red">EXPORTS</span>
-        </p>
-        <h1 className="mt-2 font-condensed text-sm uppercase tracking-wider text-edgeline-white/60">
+        <Logo className="h-10 w-auto" />
+        <h1 className="mt-4 font-condensed text-sm uppercase tracking-wider text-edgeline-white/60">
           Admin Login
         </h1>
 

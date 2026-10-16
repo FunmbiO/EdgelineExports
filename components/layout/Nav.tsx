@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Logo from "@/components/layout/Logo";
 
 const NAV_LINKS = [
   { href: "/inventory", label: "Inventory" },
@@ -17,8 +18,8 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-50 edge-accent-top bg-edgeline-black">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
-        <Link href="/" className="font-display text-2xl tracking-wide text-edgeline-white">
-          EDGELINE <span className="text-edgeline-red">EXPORTS</span>
+        <Link href="/" aria-label="Edgeline Exports — Home">
+          <Logo priority className="h-9 w-auto sm:h-10" />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

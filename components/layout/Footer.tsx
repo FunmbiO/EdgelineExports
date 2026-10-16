@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/layout/Logo";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -23,9 +24,7 @@ export default function Footer() {
     <footer className="edge-accent-top bg-edgeline-black text-edgeline-white/70">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-12 md:grid-cols-4 md:px-8">
         <div className="col-span-2 md:col-span-1">
-          <p className="font-display text-xl tracking-wide text-edgeline-white">
-            EDGELINE <span className="text-edgeline-red">EXPORTS</span>
-          </p>
+          <Logo className="h-10 w-auto" />
           <p className="mt-3 font-accent text-xl text-edgeline-red">Driven by Value.</p>
         </div>
 
