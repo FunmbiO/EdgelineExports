@@ -14,6 +14,7 @@ export default function Nav({ theme, locale }: { theme: Theme; locale: Locale })
   const t = getDictionary(locale);
 
   const NAV_LINKS = [
+    { href: "/", label: t.footer.home },
     { href: "/inventory", label: t.nav.inventory },
     { href: "/source-a-car", label: t.nav.sourceACar },
     { href: "/sell-your-car", label: t.nav.sellYourCar },
@@ -25,7 +26,7 @@ export default function Nav({ theme, locale }: { theme: Theme; locale: Locale })
     <header className="sticky top-0 z-50 edge-accent-top bg-surface">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
         <Link href="/" aria-label="Edgeline Exports — Home">
-          <Logo priority variant={theme === "dark" ? "dark" : "light"} className="h-9 w-auto sm:h-10" />
+          <Logo priority variant={theme === "dark" ? "dark" : "light"} className="h-14 w-auto sm:h-16" />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

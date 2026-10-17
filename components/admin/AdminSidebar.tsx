@@ -11,7 +11,7 @@ export default function AdminSidebar() {
   return (
     <aside className="hidden w-56 shrink-0 border-r border-edgeline-border md:block">
       <div className="p-6">
-        <Logo className="h-8 w-auto" />
+        <Logo className="h-12 w-auto" />
         <p className="mt-2 font-condensed text-xs uppercase tracking-wider text-edgeline-white/40">
           Admin
         </p>
