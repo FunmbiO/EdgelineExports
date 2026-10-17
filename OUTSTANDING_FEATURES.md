@@ -3,6 +3,23 @@
 Running list of things that are deliberately deferred, simplified, or not yet
 verified live, by the sprint they came up in. Updated as each sprint lands.
 
+## Nav, Branding & Loading Polish
+
+- [x] Contact info corrected sitewide (footer, contact page, JSON-LD):
+      real phone numbers (506) 232-4862 / (506) 227-2923 and
+      edgelineexports@gmail.com, replacing earlier placeholders. Copy
+      updated to reflect that Edgeline Exports serves both Canada and
+      the United States, not just the US ("nationwide").
+- [x] Logo enlarged across Nav, Footer, AdminSidebar, and admin login —
+      it read too small at the original sizing. Nav also gets an
+      explicit Home link alongside the clickable logo.
+- [x] Page-transition loading animation: a transparent crop of the
+      logo's car icon (`public/icon-car-transparent.png`) idles in
+      place while a route's data is loading. Root `app/loading.tsx`
+      (theme-aware) covers the public site; `app/admin/(dashboard)/loading.tsx`
+      (fixed dark) covers the admin dashboard. Inventory's existing
+      skeleton loaders are untouched.
+
 ## Light/Dark Mode + EN/FR Translation
 
 - [x] Full light/dark theme toggle, defaulting to light. Cookie-based
