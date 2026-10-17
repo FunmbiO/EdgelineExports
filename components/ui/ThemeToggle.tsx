@@ -1,11 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Theme } from "@/lib/theme/server";
 
 export default function ThemeToggle({ theme }: { theme: Theme }) {
-  const router = useRouter();
   const [pending, setPending] = useState(false);
 
   const toggle = () => {
@@ -13,7 +11,10 @@ export default function ThemeToggle({ theme }: { theme: Theme }) {
     document.cookie = `theme=${next}; path=/; max-age=31536000; samesite=lax`;
     document.documentElement.classList.toggle("dark", next === "dark");
     setPending(true);
-    router.refresh();
+    // router.refresh() doesn't reliably pick up a cookie set in the same
+    // tick (stale Router Cache payload); a full reload guarantees the
+    // server re-renders with the new theme.
+    window.location.reload();
   };
 
   return (

@@ -1,18 +1,19 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Locale } from "@/lib/i18n/dictionary";
 
 export default function LanguageToggle({ locale }: { locale: Locale }) {
-  const router = useRouter();
   const [pending, setPending] = useState(false);
 
   const toggle = () => {
     const next: Locale = locale === "en" ? "fr" : "en";
     document.cookie = `locale=${next}; path=/; max-age=31536000; samesite=lax`;
     setPending(true);
-    router.refresh();
+    // router.refresh() doesn't reliably pick up a cookie set in the same
+    // tick (stale Router Cache payload); a full reload guarantees the
+    // server re-renders with the new locale.
+    window.location.reload();
   };
 
   return (
