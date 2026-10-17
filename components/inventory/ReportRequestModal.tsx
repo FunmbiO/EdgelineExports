@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { formatPrice } from "@/lib/format";
+import { getDictionary, type Locale } from "@/lib/i18n/dictionary";
 
 const STORAGE_KEY = "edgeline-inquirer";
 
@@ -13,7 +14,8 @@ interface ReportVehicle {
   price: number;
 }
 
-export default function ReportRequestModal({ vehicle }: { vehicle: ReportVehicle }) {
+export default function ReportRequestModal({ vehicle, locale }: { vehicle: ReportVehicle; locale: Locale }) {
+  const t = getDictionary(locale);
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -68,9 +70,7 @@ export default function ReportRequestModal({ vehicle }: { vehicle: ReportVehicle
       });
       const json = await res.json();
       if (!res.ok) {
-        throw new Error(
-          typeof json.error === "string" ? json.error : "Something went wrong. Please try again.",
-        );
+        throw new Error(typeof json.error === "string" ? json.error : t.modal.somethingWentWrong);
       }
 
       try {
@@ -81,7 +81,7 @@ export default function ReportRequestModal({ vehicle }: { vehicle: ReportVehicle
 
       setReference(json.reference ?? "EDG-000000");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setError(err instanceof Error ? err.message : t.modal.somethingWentWrong);
     } finally {
       setIsSubmitting(false);
     }
@@ -92,9 +92,9 @@ export default function ReportRequestModal({ vehicle }: { vehicle: ReportVehicle
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="inline-block border border-edgeline-white/30 px-8 py-4 text-center font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:border-edgeline-red hover:text-edgeline-red"
+        className="inline-block border border-surface-foreground/30 px-8 py-4 text-center font-condensed text-sm uppercase tracking-wider text-surface-foreground transition-colors hover:border-edgeline-red hover:text-edgeline-red"
       >
-        Request Report
+        {t.modal.requestReport}
       </button>
 
       {isOpen && (
@@ -107,7 +107,7 @@ export default function ReportRequestModal({ vehicle }: { vehicle: ReportVehicle
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md border border-edgeline-border bg-edgeline-black p-8"
+            className="w-full max-w-md border border-theme-border bg-card p-8"
           >
             {reference ? (
               <div className="text-center">
@@ -124,42 +124,40 @@ export default function ReportRequestModal({ vehicle }: { vehicle: ReportVehicle
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="mt-4 font-display text-2xl text-edgeline-white">Request Sent</h3>
-                <p className="mt-2 font-body text-sm text-edgeline-white/70">
-                  You&apos;ll hear back soon.
-                </p>
-                <p className="mt-4 font-condensed text-xs uppercase tracking-wider text-edgeline-white/50">
-                  Reference: <span className="text-edgeline-red">{reference}</span>
+                <h3 className="mt-4 font-display text-2xl text-card-foreground">{t.modal.reportSent}</h3>
+                <p className="mt-2 font-body text-sm text-card-foreground/70">{t.modal.youllHearBack}</p>
+                <p className="mt-4 font-condensed text-xs uppercase tracking-wider text-card-foreground/50">
+                  {t.modal.reference}: <span className="text-edgeline-red">{reference}</span>
                 </p>
                 <button
                   type="button"
                   onClick={close}
-                  className="mt-6 border border-edgeline-white/30 px-6 py-3 font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:border-edgeline-red hover:text-edgeline-red"
+                  className="mt-6 border border-card-foreground/30 px-6 py-3 font-condensed text-sm uppercase tracking-wider text-card-foreground transition-colors hover:border-edgeline-red hover:text-edgeline-red"
                 >
-                  Close
+                  {t.modal.close}
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="flex items-start justify-between">
-                  <h3 id="report-modal-title" className="font-display text-2xl text-edgeline-white">
-                    Confirm Report Request
+                  <h3 id="report-modal-title" className="font-display text-2xl text-card-foreground">
+                    {t.modal.confirmReportRequest}
                   </h3>
                   <button
                     type="button"
                     onClick={close}
                     aria-label="Close"
-                    className="text-edgeline-white/50 hover:text-edgeline-red"
+                    className="text-card-foreground/50 hover:text-edgeline-red"
                   >
                     ✕
                   </button>
                 </div>
 
-                <div className="mt-4 border border-edgeline-border p-4">
-                  <p className="font-condensed text-xs uppercase tracking-wider text-edgeline-white/50">
-                    Vehicle
+                <div className="mt-4 border border-theme-border p-4">
+                  <p className="font-condensed text-xs uppercase tracking-wider text-card-foreground/50">
+                    {t.modal.vehicle}
                   </p>
-                  <p className="mt-1 font-body text-edgeline-white">
+                  <p className="mt-1 font-body text-card-foreground">
                     {vehicle.year} {vehicle.make} {vehicle.model}
                   </p>
                   <p className="mt-1 font-display text-lg text-edgeline-red">
@@ -180,25 +178,25 @@ export default function ReportRequestModal({ vehicle }: { vehicle: ReportVehicle
                 <div className="mt-6">
                   <label
                     htmlFor="report-name"
-                    className="block font-condensed text-xs uppercase tracking-wider text-edgeline-white/70"
+                    className="block font-condensed text-xs uppercase tracking-wider text-card-foreground/70"
                   >
-                    Full Name
+                    {t.modal.fullName}
                   </label>
                   <input
                     id="report-name"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="mt-2 w-full border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-edgeline-white focus:border-edgeline-red focus:outline-none"
+                    className="mt-2 w-full border border-theme-border bg-card px-4 py-3 font-body text-card-foreground focus:border-edgeline-red focus:outline-none"
                   />
                 </div>
 
                 <div className="mt-4">
                   <label
                     htmlFor="report-email"
-                    className="block font-condensed text-xs uppercase tracking-wider text-edgeline-white/70"
+                    className="block font-condensed text-xs uppercase tracking-wider text-card-foreground/70"
                   >
-                    Email
+                    {t.modal.email}
                   </label>
                   <input
                     id="report-email"
@@ -206,16 +204,16 @@ export default function ReportRequestModal({ vehicle }: { vehicle: ReportVehicle
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-2 w-full border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-edgeline-white focus:border-edgeline-red focus:outline-none"
+                    className="mt-2 w-full border border-theme-border bg-card px-4 py-3 font-body text-card-foreground focus:border-edgeline-red focus:outline-none"
                   />
                 </div>
 
                 <div className="mt-4">
                   <label
                     htmlFor="report-phone"
-                    className="block font-condensed text-xs uppercase tracking-wider text-edgeline-white/70"
+                    className="block font-condensed text-xs uppercase tracking-wider text-card-foreground/70"
                   >
-                    Phone <span className="text-edgeline-white/40">(optional)</span>
+                    {t.modal.phone} <span className="text-card-foreground/40">{t.modal.optional}</span>
                   </label>
                   <input
                     id="report-phone"
@@ -223,7 +221,7 @@ export default function ReportRequestModal({ vehicle }: { vehicle: ReportVehicle
                     autoComplete="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="mt-2 w-full border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-edgeline-white focus:border-edgeline-red focus:outline-none"
+                    className="mt-2 w-full border border-theme-border bg-card px-4 py-3 font-body text-card-foreground focus:border-edgeline-red focus:outline-none"
                   />
                 </div>
 
@@ -234,7 +232,7 @@ export default function ReportRequestModal({ vehicle }: { vehicle: ReportVehicle
                   disabled={isSubmitting}
                   className="mt-6 w-full bg-edgeline-red px-8 py-4 font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:bg-edgeline-red-dark disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  {isSubmitting ? "Sending..." : "Confirm Details"}
+                  {isSubmitting ? t.modal.sending : t.modal.confirmDetails}
                 </button>
               </form>
             )}

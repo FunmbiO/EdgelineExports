@@ -8,6 +8,8 @@ import InquiryModal from "@/components/inventory/InquiryModal";
 import ReportRequestModal from "@/components/inventory/ReportRequestModal";
 import { getVehicleBySlug } from "@/lib/vehicles";
 import { formatPrice, formatMileage } from "@/lib/format";
+import { getLocale } from "@/lib/i18n/server";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 export const revalidate = 60;
 
@@ -18,13 +20,6 @@ const AVAILABILITY_MAP: Record<string, string> = {
   reserved: "https://schema.org/LimitedAvailability",
   sold: "https://schema.org/SoldOut",
   draft: "https://schema.org/OutOfStock",
-};
-
-const SPEC_LABELS: Record<string, string> = {
-  engine: "Engine",
-  transmission: "Transmission",
-  drivetrain: "Drivetrain",
-  "0-60": "0–60 mph",
 };
 
 export async function generateMetadata({
@@ -66,6 +61,8 @@ export default async function VehicleDetailPage({
 
   const isSold = vehicle.status === "sold";
   const specEntries = Object.entries(vehicle.specs).filter(([, value]) => value);
+  const locale = await getLocale();
+  const t = getDictionary(locale);
 
   const vehicleJsonLd = {
     "@context": "https://schema.org",
@@ -92,13 +89,13 @@ export default async function VehicleDetailPage({
   };
 
   return (
-    <div className="bg-edgeline-black">
+    <div className="bg-surface">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(vehicleJsonLd) }}
       />
       <PageHeader
-        label="Inventory"
+        label={t.pageHeaders.inventory.label}
         title={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
       />
 
@@ -107,38 +104,39 @@ export default async function VehicleDetailPage({
           <VehicleGallery vehicle={vehicle} />
 
           <div>
-            <p className="font-body text-edgeline-white/60">
+            <p className="font-body text-surface-foreground/60">
               {formatMileage(vehicle.mileage)}
               {vehicle.color ? ` · ${vehicle.color}` : ""}
             </p>
             <p
               className={`mt-2 font-display text-4xl ${
-                isSold ? "text-edgeline-white/40 line-through" : "text-edgeline-red"
+                isSold ? "text-surface-foreground/40 line-through" : "text-edgeline-red"
               }`}
             >
               {formatPrice(vehicle.price)}
             </p>
 
             {specEntries.length > 0 && (
-              <div className="mt-8 grid grid-cols-2 gap-4 border-t border-edgeline-border pt-8">
+              <div className="mt-8 grid grid-cols-2 gap-4 border-t border-theme-border pt-8">
                 {specEntries.map(([key, value]) => (
                   <div key={key}>
-                    <p className="font-condensed text-xs uppercase tracking-wider text-edgeline-white/50">
-                      {SPEC_LABELS[key] ?? key}
+                    <p className="font-condensed text-xs uppercase tracking-wider text-surface-foreground/50">
+                      {t.inventory.specs[key as keyof typeof t.inventory.specs] ?? key}
                     </p>
-                    <p className="mt-1 font-body text-edgeline-white">{value}</p>
+                    <p className="mt-1 font-body text-surface-foreground">{value}</p>
                   </div>
                 ))}
               </div>
             )}
 
             {vehicle.description && (
-              <p className="mt-8 font-body text-edgeline-white/70">{vehicle.description}</p>
+              <p className="mt-8 font-body text-surface-foreground/70">{vehicle.description}</p>
             )}
 
             {!isSold && (
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <InquiryModal
+                  locale={locale}
                   vehicle={{
                     slug: vehicle.slug,
                     year: vehicle.year,
@@ -148,6 +146,7 @@ export default async function VehicleDetailPage({
                   }}
                 />
                 <ReportRequestModal
+                  locale={locale}
                   vehicle={{
                     slug: vehicle.slug,
                     year: vehicle.year,
@@ -168,9 +167,9 @@ export default async function VehicleDetailPage({
         <div className="mt-12">
           <Link
             href="/inventory"
-            className="font-condensed text-sm uppercase tracking-wider text-edgeline-white/60 hover:text-edgeline-red"
+            className="font-condensed text-sm uppercase tracking-wider text-surface-foreground/60 hover:text-edgeline-red"
           >
-            ← Back to Inventory
+            {t.inventory.backToInventory}
           </Link>
         </div>
       </div>

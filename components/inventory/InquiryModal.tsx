@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { formatPrice } from "@/lib/format";
+import { getDictionary, type Locale } from "@/lib/i18n/dictionary";
 
 const STORAGE_KEY = "edgeline-inquirer";
 
@@ -13,7 +14,8 @@ interface InquiryVehicle {
   price: number;
 }
 
-export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
+export default function InquiryModal({ vehicle, locale }: { vehicle: InquiryVehicle; locale: Locale }) {
+  const t = getDictionary(locale);
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -78,9 +80,7 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
       });
       const json = await res.json();
       if (!res.ok) {
-        throw new Error(
-          typeof json.error === "string" ? json.error : "Something went wrong. Please try again.",
-        );
+        throw new Error(typeof json.error === "string" ? json.error : t.modal.somethingWentWrong);
       }
 
       try {
@@ -91,7 +91,7 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
 
       setReference(json.reference ?? "EDG-000000");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setError(err instanceof Error ? err.message : t.modal.somethingWentWrong);
     } finally {
       setIsSubmitting(false);
     }
@@ -104,7 +104,7 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
         onClick={() => setIsOpen(true)}
         className="inline-block bg-edgeline-red px-8 py-4 text-center font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:bg-edgeline-red-dark"
       >
-        Inquire Now
+        {t.modal.inquireNow}
       </button>
 
       {isOpen && (
@@ -117,7 +117,7 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md border border-edgeline-border bg-edgeline-black p-8"
+            className="w-full max-w-md border border-theme-border bg-card p-8"
           >
             {reference ? (
               <div className="text-center">
@@ -134,42 +134,40 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="mt-4 font-display text-2xl text-edgeline-white">Inquiry Sent</h3>
-                <p className="mt-2 font-body text-sm text-edgeline-white/70">
-                  You&apos;ll hear back soon.
-                </p>
-                <p className="mt-4 font-condensed text-xs uppercase tracking-wider text-edgeline-white/50">
-                  Reference: <span className="text-edgeline-red">{reference}</span>
+                <h3 className="mt-4 font-display text-2xl text-card-foreground">{t.modal.inquirySent}</h3>
+                <p className="mt-2 font-body text-sm text-card-foreground/70">{t.modal.youllHearBack}</p>
+                <p className="mt-4 font-condensed text-xs uppercase tracking-wider text-card-foreground/50">
+                  {t.modal.reference}: <span className="text-edgeline-red">{reference}</span>
                 </p>
                 <button
                   type="button"
                   onClick={close}
-                  className="mt-6 border border-edgeline-white/30 px-6 py-3 font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:border-edgeline-red hover:text-edgeline-red"
+                  className="mt-6 border border-card-foreground/30 px-6 py-3 font-condensed text-sm uppercase tracking-wider text-card-foreground transition-colors hover:border-edgeline-red hover:text-edgeline-red"
                 >
-                  Close
+                  {t.modal.close}
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="flex items-start justify-between">
-                  <h3 id="inquiry-modal-title" className="font-display text-2xl text-edgeline-white">
-                    Confirm Inquiry
+                  <h3 id="inquiry-modal-title" className="font-display text-2xl text-card-foreground">
+                    {t.modal.confirmInquiry}
                   </h3>
                   <button
                     type="button"
                     onClick={close}
                     aria-label="Close"
-                    className="text-edgeline-white/50 hover:text-edgeline-red"
+                    className="text-card-foreground/50 hover:text-edgeline-red"
                   >
                     ✕
                   </button>
                 </div>
 
-                <div className="mt-4 border border-edgeline-border p-4">
-                  <p className="font-condensed text-xs uppercase tracking-wider text-edgeline-white/50">
-                    Vehicle
+                <div className="mt-4 border border-theme-border p-4">
+                  <p className="font-condensed text-xs uppercase tracking-wider text-card-foreground/50">
+                    {t.modal.vehicle}
                   </p>
-                  <p className="mt-1 font-body text-edgeline-white">
+                  <p className="mt-1 font-body text-card-foreground">
                     {vehicle.year} {vehicle.make} {vehicle.model}
                   </p>
                   <p className="mt-1 font-display text-lg text-edgeline-red">
@@ -190,25 +188,25 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
                 <div className="mt-6">
                   <label
                     htmlFor="inquiry-name"
-                    className="block font-condensed text-xs uppercase tracking-wider text-edgeline-white/70"
+                    className="block font-condensed text-xs uppercase tracking-wider text-card-foreground/70"
                   >
-                    Full Name
+                    {t.modal.fullName}
                   </label>
                   <input
                     id="inquiry-name"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="mt-2 w-full border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-edgeline-white focus:border-edgeline-red focus:outline-none"
+                    className="mt-2 w-full border border-theme-border bg-card px-4 py-3 font-body text-card-foreground focus:border-edgeline-red focus:outline-none"
                   />
                 </div>
 
                 <div className="mt-4">
                   <label
                     htmlFor="inquiry-email"
-                    className="block font-condensed text-xs uppercase tracking-wider text-edgeline-white/70"
+                    className="block font-condensed text-xs uppercase tracking-wider text-card-foreground/70"
                   >
-                    Email
+                    {t.modal.email}
                   </label>
                   <input
                     id="inquiry-email"
@@ -216,16 +214,16 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-2 w-full border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-edgeline-white focus:border-edgeline-red focus:outline-none"
+                    className="mt-2 w-full border border-theme-border bg-card px-4 py-3 font-body text-card-foreground focus:border-edgeline-red focus:outline-none"
                   />
                 </div>
 
                 <div className="mt-4">
                   <label
                     htmlFor="inquiry-phone"
-                    className="block font-condensed text-xs uppercase tracking-wider text-edgeline-white/70"
+                    className="block font-condensed text-xs uppercase tracking-wider text-card-foreground/70"
                   >
-                    Phone <span className="text-edgeline-white/40">(optional)</span>
+                    {t.modal.phone} <span className="text-card-foreground/40">{t.modal.optional}</span>
                   </label>
                   <input
                     id="inquiry-phone"
@@ -233,24 +231,24 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
                     autoComplete="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="mt-2 w-full border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-edgeline-white focus:border-edgeline-red focus:outline-none"
+                    className="mt-2 w-full border border-theme-border bg-card px-4 py-3 font-body text-card-foreground focus:border-edgeline-red focus:outline-none"
                   />
                 </div>
 
                 <div className="mt-4">
                   <label
                     htmlFor="inquiry-notes"
-                    className="block font-condensed text-xs uppercase tracking-wider text-edgeline-white/70"
+                    className="block font-condensed text-xs uppercase tracking-wider text-card-foreground/70"
                   >
-                    Notes <span className="text-edgeline-white/40">(optional)</span>
+                    {t.modal.notes} <span className="text-card-foreground/40">{t.modal.optional}</span>
                   </label>
                   <textarea
                     id="inquiry-notes"
                     rows={3}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    placeholder="Anything specific we should know — trade-in, financing, timeline..."
-                    className="mt-2 w-full resize-none border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-sm text-edgeline-white placeholder:text-edgeline-white/30 focus:border-edgeline-red focus:outline-none"
+                    placeholder={t.modal.notesPlaceholder}
+                    className="mt-2 w-full resize-none border border-theme-border bg-card px-4 py-3 font-body text-sm text-card-foreground placeholder:text-card-foreground/30 focus:border-edgeline-red focus:outline-none"
                   />
                 </div>
 
@@ -261,7 +259,7 @@ export default function InquiryModal({ vehicle }: { vehicle: InquiryVehicle }) {
                   disabled={isSubmitting}
                   className="mt-6 w-full bg-edgeline-red px-8 py-4 font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:bg-edgeline-red-dark disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  {isSubmitting ? "Sending..." : "Confirm Details"}
+                  {isSubmitting ? t.modal.sending : t.modal.confirmDetails}
                 </button>
               </form>
             )}

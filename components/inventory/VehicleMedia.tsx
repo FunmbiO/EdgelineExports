@@ -16,7 +16,7 @@ export default function VehicleMedia({
 
   if (primaryImage) {
     return (
-      <div className={`overflow-hidden bg-edgeline-black ${className}`}>
+      <div className={`overflow-hidden bg-card ${className}`}>
         <Image
           src={primaryImage.url}
           alt={primaryImage.alt ?? `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
@@ -31,13 +31,13 @@ export default function VehicleMedia({
 
   return (
     <div
-      className={`flex items-center justify-center overflow-hidden bg-edgeline-black ${className}`}
+      className={`flex items-center justify-center overflow-hidden bg-card ${className}`}
     >
       <div
         className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(196,30,42,0.35),transparent_60%)]"
         aria-hidden="true"
       />
-      <p className="relative px-4 text-center font-display text-2xl leading-tight text-edgeline-white/70">
+      <p className="relative px-4 text-center font-display text-2xl leading-tight text-card-foreground/70">
         {vehicle.year}
         <br />
         {vehicle.make} {vehicle.model}

@@ -15,13 +15,13 @@ export default function VehicleGallery({
 
   if (images.length === 0) {
     return (
-      <div className="relative aspect-[4/3] overflow-hidden bg-edgeline-black">
+      <div className="relative aspect-[4/3] overflow-hidden bg-card">
         <div
           className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(196,30,42,0.35),transparent_60%)]"
           aria-hidden="true"
         />
         <div className="absolute inset-0 flex items-center justify-center">
-          <p className="px-4 text-center font-display text-2xl leading-tight text-edgeline-white/70">
+          <p className="px-4 text-center font-display text-2xl leading-tight text-card-foreground/70">
             {vehicle.year}
             <br />
             {vehicle.make} {vehicle.model}
@@ -37,7 +37,7 @@ export default function VehicleGallery({
 
   return (
     <div>
-      <div className="relative aspect-[4/3] overflow-hidden bg-edgeline-black">
+      <div className="relative aspect-[4/3] overflow-hidden bg-card">
         <Image
           key={activeImage.url}
           src={activeImage.url}
@@ -85,7 +85,7 @@ export default function VehicleGallery({
               className={`relative h-16 w-24 shrink-0 overflow-hidden border-2 transition-colors ${
                 index === activeIndex
                   ? "border-edgeline-red"
-                  : "border-transparent hover:border-edgeline-white/30"
+                  : "border-transparent hover:border-surface-foreground/30"
               }`}
             >
               <Image src={img.url} alt="" fill sizes="96px" className="object-cover" />

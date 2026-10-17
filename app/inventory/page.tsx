@@ -6,6 +6,8 @@ import Pagination from "@/components/inventory/Pagination";
 import PickOfTheWeek from "@/components/inventory/PickOfTheWeek";
 import { getVehicles, getFeaturedVehicle, VEHICLES_PAGE_SIZE } from "@/lib/vehicles";
 import { INVENTORY_FILTERS, type InventoryFilter } from "@/types/vehicle";
+import { getLocale } from "@/lib/i18n/server";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 export const revalidate = 60;
 
@@ -33,13 +35,15 @@ export default async function InventoryPage({
   ]);
 
   const totalPages = Math.max(1, Math.ceil(count / VEHICLES_PAGE_SIZE));
+  const locale = await getLocale();
+  const t = getDictionary(locale);
 
   return (
-    <div className="bg-edgeline-black">
+    <div className="bg-surface">
       <PageHeader
-        label="Inventory"
-        title="Current Stock"
-        subtitle="Every car we list is inspected and history-verified before it goes live."
+        label={t.pageHeaders.inventory.label}
+        title={t.pageHeaders.inventory.title}
+        subtitle={t.pageHeaders.inventory.subtitle}
       />
 
       <div className="mx-auto max-w-7xl space-y-10 px-4 py-12 md:px-8">

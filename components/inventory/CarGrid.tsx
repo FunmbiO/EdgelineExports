@@ -1,11 +1,15 @@
 import type { Vehicle } from "@/types/vehicle";
 import CarCard from "@/components/inventory/CarCard";
+import { getLocale } from "@/lib/i18n/server";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
-export default function CarGrid({ vehicles }: { vehicles: Vehicle[] }) {
+export default async function CarGrid({ vehicles }: { vehicles: Vehicle[] }) {
   if (vehicles.length === 0) {
+    const locale = await getLocale();
+    const t = getDictionary(locale);
     return (
-      <div className="border border-dashed border-edgeline-border py-20 text-center font-body text-edgeline-white/50">
-        No vehicles match this filter right now.
+      <div className="border border-dashed border-theme-border py-20 text-center font-body text-surface-foreground/50">
+        {t.inventory.noResults}
       </div>
     );
   }
