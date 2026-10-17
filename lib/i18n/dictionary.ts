@@ -74,9 +74,10 @@ const dictionary = {
       sellYourCar: { label: "Sell Your Car", title: "Outright Purchase or Consignment", subtitle: "Two ways to sell. Tell us your car's details and we'll recommend the right one." },
     },
     notFound: {
-      title: "Page Not Found",
-      description: "The page you're looking for doesn't exist or has moved.",
-      button: "Back to Home",
+      title: "This page took a wrong turn.",
+      description: "The page you're looking for doesn't exist, or the listing may have already sold.",
+      backToHome: "Back to Home",
+      browseInventory: "Browse Inventory",
     },
     inventoryFilters: {
       all: "All",
@@ -286,9 +287,10 @@ const dictionary = {
       sellYourCar: { label: "Vendre votre Voiture", title: "Achat Ferme ou Consignation", subtitle: "Deux façons de vendre. Donnez-nous les détails de votre voiture et nous vous recommanderons la bonne option." },
     },
     notFound: {
-      title: "Page Introuvable",
-      description: "La page que vous recherchez n'existe pas ou a été déplacée.",
-      button: "Retour à l'Accueil",
+      title: "Cette page a pris un mauvais virage.",
+      description: "La page que vous recherchez n'existe pas, ou l'annonce a peut-être déjà été vendue.",
+      backToHome: "Retour à l'Accueil",
+      browseInventory: "Parcourir l'Inventaire",
     },
     inventoryFilters: {
       all: "Tous",
