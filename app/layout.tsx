@@ -9,6 +9,8 @@ import {
 import "./globals.css";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import { getTheme } from "@/lib/theme/server";
+import { getLocale } from "@/lib/i18n/server";
 
 // Primary display face — bold editorial headlines across the site.
 const abrilFatface = Abril_Fatface({
@@ -81,21 +83,24 @@ const organizationJsonLd = {
   areaServed: "US",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const theme = await getTheme();
+  const locale = await getLocale();
+
   return (
-    <html lang="en">
+    <html lang={locale} className={theme === "dark" ? "dark" : undefined}>
       <body
-        className={`${abrilFatface.variable} ${yesevaOne.variable} ${plusJakartaSans.variable} ${barlowCondensed.variable} ${rockSalt.variable} font-body antialiased bg-edgeline-white text-edgeline-black`}
+        className={`${abrilFatface.variable} ${yesevaOne.variable} ${plusJakartaSans.variable} ${barlowCondensed.variable} ${rockSalt.variable} font-body antialiased bg-surface text-surface-foreground`}
       >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <Nav />
+        <Nav theme={theme} locale={locale} />
         <main>{children}</main>
         <Footer />
       </body>
