@@ -25,8 +25,9 @@ export default async function ContactPage() {
                 {t.contactPage.infoTitle}
               </h3>
               <ul className="mt-4 space-y-2 font-body text-surface-foreground/80">
-                <li>hello@edgelineexports.com</li>
-                <li>(555) 010-9200</li>
+                <li>edgelineexports@gmail.com</li>
+                <li>(506) 232-4862</li>
+                <li>(506) 227-2923</li>
                 <li>{t.footer.nationwideDelivery}</li>
               </ul>
             </div>

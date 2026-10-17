@@ -25,7 +25,7 @@ const dictionary = {
       weFindIt: "We Find It",
       sellToUs: "Sell To Us",
       contact: "Contact",
-      nationwideDelivery: "Nationwide Delivery, USA",
+      nationwideDelivery: "Serving Canada & the United States",
       privacyPolicy: "Privacy Policy",
       termsOfService: "Terms of Service",
       rightsReserved: "All rights reserved.",
@@ -35,7 +35,7 @@ const dictionary = {
       titleLine1: "Driven by",
       titleHighlight: "Value",
       description:
-        "We buy, sell, and source performance and luxury vehicles nationwide — with verified history, honest inspections, and delivery to your door.",
+        "We buy, sell, and source performance and luxury vehicles across Canada and the United States — with verified history, honest inspections, and delivery to your door.",
       viewInventory: "View Inventory",
       sourceACar: "Source a Car",
     },
@@ -50,7 +50,7 @@ const dictionary = {
       eyebrow: "Services",
       title: "How We Work",
       buyTitle: "Buy From Us",
-      buyDescription: "Browse verified, inspected inventory ready to ship nationwide.",
+      buyDescription: "Browse verified, inspected inventory ready to ship across Canada and the US.",
       findTitle: "We Find It",
       findDescription: "Tell us what you want and we'll source it from our network.",
       sellTitle: "Sell To Us",
@@ -106,8 +106,8 @@ const dictionary = {
       inspectionDescription: "Every vehicle passes a multi-point inspection before it's listed.",
       historyTitle: "Verified History",
       historyDescription: "Full title and accident history checked and documented.",
-      deliveryTitle: "Nationwide Delivery",
-      deliveryDescription: "Enclosed transport to your door, anywhere in the country.",
+      deliveryTitle: "Cross-Border Delivery",
+      deliveryDescription: "Enclosed transport to your door, anywhere in Canada or the US.",
     },
     about: {
       eyebrow: "Since Day One",
@@ -115,7 +115,7 @@ const dictionary = {
       paragraph1:
         "Edgeline Exports started as an online-only dealership built around a simple idea: buying or selling a performance car shouldn't require a showroom, a hard sell, or guesswork about a vehicle's history.",
       paragraph2:
-        "Every car we list is inspected and history-verified before it goes live. Every sourcing request is handled by someone who actually knows the market. And every sale — whether you're buying, selling, or having us find your next car — is backed by nationwide delivery and a team that answers the phone.",
+        "Every car we list is inspected and history-verified before it goes live. Every sourcing request is handled by someone who actually knows the market. And every sale — whether you're buying, selling, or having us find your next car — is backed by delivery across Canada and the US and a team that answers the phone.",
     },
     contactPage: {
       infoTitle: "Contact Info",
@@ -238,7 +238,7 @@ const dictionary = {
       weFindIt: "Nous la Trouvons",
       sellToUs: "Vendez-nous",
       contact: "Contact",
-      nationwideDelivery: "Livraison partout aux États-Unis",
+      nationwideDelivery: "Au service du Canada et des États-Unis",
       privacyPolicy: "Politique de Confidentialité",
       termsOfService: "Conditions d'Utilisation",
       rightsReserved: "Tous droits réservés.",
@@ -248,7 +248,7 @@ const dictionary = {
       titleLine1: "Guidé par la",
       titleHighlight: "Valeur",
       description:
-        "Nous achetons, vendons et trouvons des véhicules de performance et de luxe partout au pays — avec historique vérifié, inspections honnêtes et livraison à votre porte.",
+        "Nous achetons, vendons et trouvons des véhicules de performance et de luxe partout au Canada et aux États-Unis — avec historique vérifié, inspections honnêtes et livraison à votre porte.",
       viewInventory: "Voir l'Inventaire",
       sourceACar: "Trouver une Voiture",
     },
@@ -263,7 +263,7 @@ const dictionary = {
       eyebrow: "Services",
       title: "Comment Ça Marche",
       buyTitle: "Acheter chez Nous",
-      buyDescription: "Parcourez un inventaire vérifié et inspecté, prêt à expédier partout au pays.",
+      buyDescription: "Parcourez un inventaire vérifié et inspecté, prêt à expédier partout au Canada et aux États-Unis.",
       findTitle: "Nous la Trouvons",
       findDescription: "Dites-nous ce que vous voulez et nous la trouverons dans notre réseau.",
       sellTitle: "Vendez-nous",
@@ -319,8 +319,8 @@ const dictionary = {
       inspectionDescription: "Chaque véhicule passe une inspection à points multiples avant d'être listé.",
       historyTitle: "Historique Vérifié",
       historyDescription: "Titre complet et historique d'accidents vérifiés et documentés.",
-      deliveryTitle: "Livraison Partout au Pays",
-      deliveryDescription: "Transport fermé jusqu'à votre porte, partout au pays.",
+      deliveryTitle: "Livraison Transfrontalière",
+      deliveryDescription: "Transport fermé jusqu'à votre porte, partout au Canada et aux États-Unis.",
     },
     about: {
       eyebrow: "Depuis le Premier Jour",
@@ -328,7 +328,7 @@ const dictionary = {
       paragraph1:
         "Edgeline Exports a débuté comme concessionnaire en ligne uniquement, bâti autour d'une idée simple : acheter ou vendre une voiture de performance ne devrait exiger ni salle d'exposition, ni vente forcée, ni incertitude sur l'historique du véhicule.",
       paragraph2:
-        "Chaque voiture que nous listons est inspectée et son historique est vérifié avant publication. Chaque demande de recherche est traitée par quelqu'un qui connaît vraiment le marché. Et chaque vente — que vous achetiez, vendiez, ou que nous trouvions votre prochaine voiture — est appuyée par une livraison partout au pays et une équipe qui répond au téléphone.",
+        "Chaque voiture que nous listons est inspectée et son historique est vérifié avant publication. Chaque demande de recherche est traitée par quelqu'un qui connaît vraiment le marché. Et chaque vente — que vous achetiez, vendiez, ou que nous trouvions votre prochaine voiture — est appuyée par une livraison partout au Canada et aux États-Unis et une équipe qui répond au téléphone.",
     },
     contactPage: {
       infoTitle: "Coordonnées",

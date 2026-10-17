@@ -48,7 +48,7 @@ const rockSalt = Rock_Salt({
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://edgelineexports.com";
 const SITE_DESCRIPTION =
-  "Edgeline Exports is an online-only dealership that buys, sells, and sources vehicles nationwide.";
+  "Edgeline Exports is an online-only dealership that buys, sells, and sources vehicles across Canada and the United States.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -78,9 +78,9 @@ const organizationJsonLd = {
   name: "Edgeline Exports",
   url: SITE_URL,
   description: SITE_DESCRIPTION,
-  email: "hello@edgelineexports.com",
-  telephone: "(555) 010-9200",
-  areaServed: "US",
+  email: "edgelineexports@gmail.com",
+  telephone: "(506) 232-4862",
+  areaServed: ["US", "CA"],
 };
 
 export default async function RootLayout({

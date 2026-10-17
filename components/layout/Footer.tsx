@@ -31,7 +31,7 @@ export default async function Footer() {
     <footer className="edge-accent-top bg-surface text-surface-foreground/70">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-12 md:grid-cols-4 md:px-8">
         <div className="col-span-2 md:col-span-1">
-          <Logo variant={theme === "dark" ? "dark" : "light"} className="h-10 w-auto" />
+          <Logo variant={theme === "dark" ? "dark" : "light"} className="h-16 w-auto" />
           <p className="mt-3 font-accent text-xl text-edgeline-red">{t.footer.tagline}</p>
         </div>
 
@@ -70,8 +70,9 @@ export default async function Footer() {
             {t.footer.contact}
           </h3>
           <ul className="mt-4 space-y-2 text-sm">
-            <li>hello@edgelineexports.com</li>
-            <li>(555) 010-9200</li>
+            <li>edgelineexports@gmail.com</li>
+            <li>(506) 232-4862</li>
+            <li>(506) 227-2923</li>
             <li>{t.footer.nationwideDelivery}</li>
           </ul>
         </div>
