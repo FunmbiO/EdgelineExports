@@ -73,6 +73,9 @@ const dictionary = {
       sourceACar: { label: "Source a Car", title: "We'll Find It", subtitle: "Tell us what you want, and we'll go source it from our network." },
       sellYourCar: { label: "Sell Your Car", title: "Outright Purchase or Consignment", subtitle: "Two ways to sell. Tell us your car's details and we'll recommend the right one." },
     },
+    loading: {
+      label: "Loading",
+    },
     notFound: {
       title: "This page took a wrong turn.",
       description: "The page you're looking for doesn't exist, or the listing may have already sold.",
@@ -285,6 +288,9 @@ const dictionary = {
       contact: { label: "Contact", title: "Contactez-nous" },
       sourceACar: { label: "Trouver une Voiture", title: "Nous la Trouverons", subtitle: "Dites-nous ce que vous voulez, et nous la trouverons dans notre réseau." },
       sellYourCar: { label: "Vendre votre Voiture", title: "Achat Ferme ou Consignation", subtitle: "Deux façons de vendre. Donnez-nous les détails de votre voiture et nous vous recommanderons la bonne option." },
+    },
+    loading: {
+      label: "Chargement",
     },
     notFound: {
       title: "Cette page a pris un mauvais virage.",
