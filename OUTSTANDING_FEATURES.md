@@ -3,6 +3,49 @@
 Running list of things that are deliberately deferred, simplified, or not yet
 verified live, by the sprint they came up in. Updated as each sprint lands.
 
+## Light/Dark Mode + EN/FR Translation
+
+- [x] Full light/dark theme toggle, defaulting to light. Cookie-based
+      (`theme` cookie, read server-side via `next/headers` in
+      `lib/theme/server.ts`), so there's no flash on first paint — the
+      `<html>` tag already carries the right class before hydration.
+      Semantic `surface`/`muted`/`card` color tokens (Tailwind, backed by
+      CSS variables in `app/globals.css`) let components opt into
+      theme-awareness; the literal `edgeline-black`/`edgeline-white`
+      brand colors stay fixed on purpose anywhere the contrast is
+      independent of site theme (white text on a red button, status
+      badges and gallery arrows overlaid on vehicle photos).
+- [x] EN/FR language toggle, defaulting to English. Same cookie pattern
+      (`locale` cookie, `lib/i18n/server.ts`). Translation dictionary
+      (`lib/i18n/dictionary.ts`) covers all static UI copy — nav, footer,
+      hero, page headers, forms, buttons, modals, 404 page.
+- [ ] Translation is intentionally scoped to static site copy only.
+      Anything pulled from Supabase — vehicle make/model/description,
+      testimonial quotes and names, admin-composed emails — is
+      user-generated content and is NOT translated. A French-speaking
+      visitor will see the UI chrome in French but vehicle listings and
+      testimonials in whatever language they were originally entered in.
+      Real translation of DB content would need either a translation
+      service integrated into the admin forms or a parallel `_fr` column
+      per translatable field — out of scope for this pass.
+- [ ] The admin dashboard was deliberately left out of both the theme
+      toggle and translation. It's an internal tool, not customer-facing,
+      and keeps its existing fixed dark UI regardless of what a visitor
+      has the public site set to.
+- [ ] Theme/locale cookies read via `cookies()` force several pages that
+      were previously static/ISR (`/`, `/about`, `/contact`,
+      `/source-a-car`, `/sell-your-car`) to render dynamically on every
+      request instead. This is an inherent tradeoff of per-request
+      cookie-based theming — a future optimization could move the theme
+      read to middleware + a response header instead, but that's a
+      bigger change not attempted here.
+- [x] Initially wired the toggle buttons with `router.refresh()`, which
+      turned out to not reliably pick up a cookie set in the same click
+      (stale Router Cache payload — confirmed via a live click test that
+      showed the nav still in the old language despite the cookie being
+      set correctly). Fixed by switching both toggles to a full
+      `window.location.reload()`, verified via a live round-trip test.
+
 ## Sprint 1 — Foundation & Scaffolding
 
 - [x] Supabase Storage bucket (`vehicle-images`) — created in Sprint 4 along
