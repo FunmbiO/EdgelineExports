@@ -66,7 +66,7 @@ export default async function AdminLeadsPage({
 
       <div className="mt-6 overflow-x-auto border border-edgeline-border">
         <table className="w-full text-left">
-          <thead className="border-b border-edgeline-border">
+          <thead className="hidden border-b border-edgeline-border md:table-header-group">
             <tr className="font-condensed text-xs uppercase tracking-wider text-edgeline-white/50">
               <th className="px-4 py-3">Contact</th>
               <th className="px-4 py-3">Source</th>

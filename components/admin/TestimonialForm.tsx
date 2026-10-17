@@ -54,7 +54,7 @@ export default function TestimonialForm({ testimonial }: { testimonial?: AdminTe
   };
 
   return (
-    <form onSubmit={onSubmit} className="space-y-6 border border-edgeline-border bg-edgeline-black p-8">
+    <form onSubmit={onSubmit} className="space-y-6 border border-edgeline-border bg-edgeline-black p-4 sm:p-8">
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <label className={labelClass} htmlFor="name">

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminTopBar from "@/components/admin/AdminTopBar";
+import AdminMobileNav from "@/components/admin/AdminMobileNav";
 
 export default async function AdminDashboardLayout({
   children,
@@ -25,9 +26,10 @@ export default async function AdminDashboardLayout({
   return (
     <div className="flex min-h-screen bg-edgeline-black">
       <AdminSidebar />
-      <div className="flex-1">
+      <div className="min-w-0 flex-1">
         <AdminTopBar email={userEmail} />
-        <main className="p-6 md:p-10">{children}</main>
+        <AdminMobileNav />
+        <main className="p-4 sm:p-6 md:p-10">{children}</main>
       </div>
     </div>
   );

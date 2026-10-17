@@ -14,11 +14,11 @@ export default function AdminTopBar({ email }: { email: string }) {
   };
 
   return (
-    <div className="flex items-center justify-between border-b border-edgeline-border px-6 py-4 md:px-10">
-      <p className="font-condensed text-sm text-edgeline-white/60">{email}</p>
+    <div className="flex items-center justify-between gap-3 border-b border-edgeline-border px-4 py-4 sm:px-6 md:px-10">
+      <p className="truncate font-condensed text-sm text-edgeline-white/60">{email}</p>
       <button
         onClick={handleSignOut}
-        className="font-condensed text-xs uppercase tracking-wider text-edgeline-white/60 hover:text-edgeline-red"
+        className="shrink-0 font-condensed text-xs uppercase tracking-wider text-edgeline-white/60 hover:text-edgeline-red"
       >
         Sign Out
       </button>

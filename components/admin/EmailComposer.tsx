@@ -46,7 +46,7 @@ export default function EmailComposer() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="space-y-6 border border-edgeline-border bg-edgeline-black p-8">
+    <form onSubmit={onSubmit} className="space-y-6 border border-edgeline-border bg-edgeline-black p-4 sm:p-8">
       <div>
         <label className={labelClass} htmlFor="to">
           Client Email

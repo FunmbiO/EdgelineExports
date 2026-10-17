@@ -43,7 +43,7 @@ export default async function AdminTestimonialsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="font-display text-3xl text-edgeline-white">Testimonials</h1>
         <Link
           href="/admin/testimonials/new"
@@ -53,7 +53,43 @@ export default async function AdminTestimonialsPage() {
         </Link>
       </div>
 
-      <div className="mt-8 overflow-x-auto border border-edgeline-border">
+      {/* Mobile: stacked cards so actions are always visible without scrolling */}
+      <div className="mt-8 grid gap-4 sm:hidden">
+        {testimonials.length === 0 && (
+          <p className="border border-edgeline-border px-4 py-8 text-center font-body text-edgeline-white/50">
+            No testimonials yet — add your first one.
+          </p>
+        )}
+        {testimonials.map((t) => (
+          <div key={t.id} className="border border-edgeline-border bg-edgeline-black p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="font-body text-edgeline-white">{t.name}</p>
+                {t.location && <p className="text-xs text-edgeline-white/50">{t.location}</p>}
+              </div>
+              <span
+                className={`shrink-0 whitespace-nowrap border px-2.5 py-1 font-condensed text-xs uppercase tracking-wider ${
+                  t.featured
+                    ? "border-edgeline-red bg-edgeline-red/10 text-edgeline-red"
+                    : "border-edgeline-white/20 text-edgeline-white/50"
+                }`}
+              >
+                {t.featured ? "Published" : "Hidden"}
+              </span>
+            </div>
+            <p className="mt-3 font-body text-sm text-edgeline-white/70">&ldquo;{t.quote}&rdquo;</p>
+            <p className="mt-2 font-body text-xs text-edgeline-white/50">
+              {formatRelativeTime(t.createdAt)}
+            </p>
+            <div className="mt-4 border-t border-edgeline-border pt-3">
+              <TestimonialRowActions id={t.id} featured={t.featured} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: table */}
+      <div className="mt-8 hidden overflow-x-auto border border-edgeline-border sm:block">
         <table className="w-full text-left">
           <thead className="border-b border-edgeline-border">
             <tr className="font-condensed text-xs uppercase tracking-wider text-edgeline-white/50">

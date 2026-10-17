@@ -29,7 +29,7 @@ export default async function AdminInventoryPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="font-display text-3xl text-edgeline-white">Inventory</h1>
         <Link
           href="/admin/inventory/new"
@@ -39,7 +39,34 @@ export default async function AdminInventoryPage() {
         </Link>
       </div>
 
-      <div className="mt-8 overflow-x-auto border border-edgeline-border">
+      {/* Mobile: stacked cards so actions are always visible without scrolling */}
+      <div className="mt-8 grid gap-4 sm:hidden">
+        {vehicles.length === 0 && (
+          <p className="border border-edgeline-border px-4 py-8 text-center font-body text-edgeline-white/50">
+            No vehicles yet.
+          </p>
+        )}
+        {vehicles.map((v) => (
+          <div key={v.id} className="border border-edgeline-border bg-edgeline-black p-4">
+            <div className="flex items-start justify-between gap-3">
+              <p className="font-body text-edgeline-white">
+                {v.year} {v.make} {v.model}
+              </p>
+              <StatusPill status={v.status} />
+            </div>
+            <div className="mt-2 flex gap-4 font-body text-sm text-edgeline-white/70">
+              <span>{formatPrice(v.price)}</span>
+              <span>{formatMileage(v.mileage)}</span>
+            </div>
+            <div className="mt-4 border-t border-edgeline-border pt-3">
+              <VehicleRowActions id={v.id} status={v.status} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: table */}
+      <div className="mt-8 hidden overflow-x-auto border border-edgeline-border sm:block">
         <table className="w-full text-left">
           <thead className="border-b border-edgeline-border">
             <tr className="font-condensed text-xs uppercase tracking-wider text-edgeline-white/50">
