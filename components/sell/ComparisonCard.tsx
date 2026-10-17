@@ -8,9 +8,9 @@ export default function ComparisonCard({
   steps: string[];
 }) {
   return (
-    <div className="flex flex-col border border-edgeline-border bg-edgeline-black p-8">
-      <h3 className="font-display text-3xl text-edgeline-white">{title}</h3>
-      <p className="mt-2 font-body text-edgeline-white/60">{description}</p>
+    <div className="flex flex-col border border-theme-border bg-card p-8">
+      <h3 className="font-display text-3xl text-card-foreground">{title}</h3>
+      <p className="mt-2 font-body text-card-foreground/60">{description}</p>
 
       <ol className="mt-8 space-y-6">
         {steps.map((step, index) => (
@@ -18,7 +18,7 @@ export default function ComparisonCard({
             <span className="font-display text-2xl text-edgeline-red">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <span className="font-body text-edgeline-white/80">{step}</span>
+            <span className="font-body text-card-foreground/80">{step}</span>
           </li>
         ))}
       </ol>

@@ -8,8 +8,11 @@ import FormField from "@/components/forms/FormField";
 import FormTextarea from "@/components/forms/FormTextarea";
 import FormSelect from "@/components/forms/FormSelect";
 import SuccessState from "@/components/forms/SuccessState";
+import { getDictionary, type Locale } from "@/lib/i18n/dictionary";
 
-export default function ContactForm() {
+export default function ContactForm({ locale }: { locale: Locale }) {
+  const t = getDictionary(locale);
+  const subjectOptions = SUBJECT_OPTIONS.map((o) => ({ ...o, label: t.subjectOptions[o.value] }));
   const [reference, setReference] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -32,24 +35,24 @@ export default function ContactForm() {
       });
       const json = await res.json();
       if (!res.ok) {
-        throw new Error(typeof json.error === "string" ? json.error : "Something went wrong. Please try again.");
+        throw new Error(typeof json.error === "string" ? json.error : t.forms.somethingWentWrong);
       }
       setReference(json.reference ?? "EDG-000000");
     } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setSubmitError(err instanceof Error ? err.message : t.forms.somethingWentWrong);
     }
   };
 
   if (reference) {
     return (
-      <SuccessState reference={reference} message="We typically respond within one business day." />
+      <SuccessState reference={reference} message={t.forms.contactSuccessMessage} locale={locale} />
     );
   }
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 border border-edgeline-border bg-edgeline-black p-8"
+      className="space-y-6 border border-theme-border bg-card p-8"
     >
       <input
         type="text"
@@ -61,9 +64,9 @@ export default function ContactForm() {
       />
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <FormField label="Full Name" registration={register("name")} error={errors.name?.message} />
+        <FormField label={t.forms.fullName} registration={register("name")} error={errors.name?.message} />
         <FormField
-          label="Email"
+          label={t.forms.email}
           type="email"
           registration={register("email")}
           error={errors.email?.message}
@@ -71,14 +74,14 @@ export default function ContactForm() {
       </div>
 
       <FormSelect
-        label="Subject"
-        options={SUBJECT_OPTIONS}
+        label={t.forms.subject}
+        options={subjectOptions}
         registration={register("subject")}
         error={errors.subject?.message}
       />
 
       <FormTextarea
-        label="Message"
+        label={t.forms.message}
         rows={5}
         registration={register("message")}
         error={errors.message?.message}
@@ -91,7 +94,7 @@ export default function ContactForm() {
         disabled={!isValid || isSubmitting}
         className="w-full bg-edgeline-red px-8 py-4 font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:bg-edgeline-red-dark disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
       >
-        {isSubmitting ? "Sending..." : "Send Message"}
+        {isSubmitting ? t.forms.sending : t.forms.sendMessage}
       </button>
     </form>
   );

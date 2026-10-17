@@ -4,6 +4,8 @@ import StatsBar from "@/components/home/StatsBar";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import TrustSignals from "@/components/inventory/TrustSignals";
 import { getFeaturedTestimonials } from "@/lib/testimonials";
+import { getLocale } from "@/lib/i18n/server";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 export const revalidate = 60;
 
@@ -14,10 +16,12 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   const testimonials = await getFeaturedTestimonials();
+  const locale = await getLocale();
+  const t = getDictionary(locale);
 
   return (
-    <div className="bg-edgeline-black">
-      <PageHeader label="About" title="Our Story" />
+    <div className="bg-surface">
+      <PageHeader label={t.pageHeaders.about.label} title={t.pageHeaders.about.title} />
 
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
@@ -25,20 +29,11 @@ export default async function AboutPage() {
 
           <div>
             <p className="font-condensed text-sm uppercase tracking-[0.3em] text-edgeline-red">
-              Since Day One
+              {t.about.eyebrow}
             </p>
-            <h2 className="mt-3 font-display text-4xl text-edgeline-white">Driven by Value</h2>
-            <p className="mt-6 font-body text-edgeline-white/70">
-              Edgeline Exports started as an online-only dealership built around a simple
-              idea: buying or selling a performance car shouldn&apos;t require a showroom,
-              a hard sell, or guesswork about a vehicle&apos;s history.
-            </p>
-            <p className="mt-4 font-body text-edgeline-white/70">
-              Every car we list is inspected and history-verified before it goes live. Every
-              sourcing request is handled by someone who actually knows the market. And every
-              sale — whether you&apos;re buying, selling, or having us find your next car — is
-              backed by nationwide delivery and a team that answers the phone.
-            </p>
+            <h2 className="mt-3 font-display text-4xl text-surface-foreground">{t.about.title}</h2>
+            <p className="mt-6 font-body text-surface-foreground/70">{t.about.paragraph1}</p>
+            <p className="mt-4 font-body text-surface-foreground/70">{t.about.paragraph2}</p>
           </div>
         </div>
       </div>

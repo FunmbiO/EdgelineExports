@@ -12,8 +12,11 @@ import FormField from "@/components/forms/FormField";
 import FormTextarea from "@/components/forms/FormTextarea";
 import FormSelect from "@/components/forms/FormSelect";
 import SuccessState from "@/components/forms/SuccessState";
+import { getDictionary, type Locale } from "@/lib/i18n/dictionary";
 
-export default function SourceACarForm() {
+export default function SourceACarForm({ locale }: { locale: Locale }) {
+  const t = getDictionary(locale);
+  const budgetOptions = BUDGET_OPTIONS.map((o) => ({ ...o, label: t.budgetOptions[o.value] }));
   const [reference, setReference] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -36,27 +39,24 @@ export default function SourceACarForm() {
       });
       const json = await res.json();
       if (!res.ok) {
-        throw new Error(typeof json.error === "string" ? json.error : "Something went wrong. Please try again.");
+        throw new Error(typeof json.error === "string" ? json.error : t.forms.somethingWentWrong);
       }
       setReference(json.reference);
     } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setSubmitError(err instanceof Error ? err.message : t.forms.somethingWentWrong);
     }
   };
 
   if (reference) {
     return (
-      <SuccessState
-        reference={reference}
-        message="We'll be in touch within 24 hours to talk through what you're looking for."
-      />
+      <SuccessState reference={reference} message={t.forms.sourceSuccessMessage} locale={locale} />
     );
   }
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-10 border border-edgeline-border bg-edgeline-black p-8 md:p-12"
+      className="space-y-10 border border-theme-border bg-card p-8 md:p-12"
     >
       <input
         type="text"
@@ -69,58 +69,58 @@ export default function SourceACarForm() {
 
       <div>
         <h3 className="font-condensed text-sm uppercase tracking-wider text-edgeline-red">
-          Your Details
+          {t.forms.yourDetails}
         </h3>
         <div className="mt-4 grid gap-6 sm:grid-cols-2">
-          <FormField label="Full Name" registration={register("name")} error={errors.name?.message} />
+          <FormField label={t.forms.fullName} registration={register("name")} error={errors.name?.message} />
           <FormField
-            label="Email"
+            label={t.forms.email}
             type="email"
             registration={register("email")}
             error={errors.email?.message}
           />
-          <FormField label="Phone" type="tel" registration={register("phone")} error={errors.phone?.message} />
-          <FormField label="Location" registration={register("location")} error={errors.location?.message} />
+          <FormField label={t.forms.phone} type="tel" registration={register("phone")} error={errors.phone?.message} />
+          <FormField label={t.forms.location} registration={register("location")} error={errors.location?.message} />
         </div>
       </div>
 
       <div>
         <h3 className="font-condensed text-sm uppercase tracking-wider text-edgeline-red">
-          Vehicle Details
+          {t.forms.vehicleDetails}
         </h3>
         <div className="mt-4 grid gap-6 sm:grid-cols-2">
-          <FormField label="Make" registration={register("make")} error={errors.make?.message} />
-          <FormField label="Model" registration={register("model")} error={errors.model?.message} />
+          <FormField label={t.forms.make} registration={register("make")} error={errors.make?.message} />
+          <FormField label={t.forms.model} registration={register("model")} error={errors.model?.message} />
           <FormField
-            label="Year Range"
-            placeholder="e.g. 2020–2023"
+            label={t.forms.yearRange}
+            placeholder={t.forms.yearRangePlaceholder}
             registration={register("yearRange")}
             error={errors.yearRange?.message}
           />
           <FormSelect
-            label="Budget"
-            options={BUDGET_OPTIONS}
+            label={t.forms.budget}
+            options={budgetOptions}
             registration={register("budget")}
             error={errors.budget?.message}
           />
-          <FormField label="Color" registration={register("color")} error={errors.color?.message} />
+          <FormField label={t.forms.color} registration={register("color")} error={errors.color?.message} />
           <FormField
-            label="Mileage"
-            placeholder="e.g. under 20,000 mi"
+            label={t.forms.mileage}
+            placeholder={t.forms.mileagePlaceholderSource}
             registration={register("mileage")}
             error={errors.mileage?.message}
           />
         </div>
         <div className="mt-6">
           <FormTextarea
-            label="Must-Have Options"
-            placeholder="Trim, packages, features..."
+            label={t.forms.mustHaveOptions}
+            placeholder={t.forms.mustHaveOptionsPlaceholder}
             registration={register("options")}
             error={errors.options?.message}
           />
         </div>
         <div className="mt-6">
-          <FormTextarea label="Additional Notes" registration={register("notes")} error={errors.notes?.message} />
+          <FormTextarea label={t.forms.additionalNotes} registration={register("notes")} error={errors.notes?.message} />
         </div>
       </div>
 
@@ -131,7 +131,7 @@ export default function SourceACarForm() {
         disabled={!isValid || isSubmitting}
         className="w-full bg-edgeline-red px-8 py-4 font-condensed text-sm uppercase tracking-wider text-edgeline-white transition-colors hover:bg-edgeline-red-dark disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
       >
-        {isSubmitting ? "Submitting..." : "Submit Request"}
+        {isSubmitting ? t.forms.submitting : t.forms.submitRequest}
       </button>
     </form>
   );

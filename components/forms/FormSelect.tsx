@@ -15,14 +15,14 @@ export default function FormSelect({
     <div>
       <label
         htmlFor={registration.name}
-        className="block font-condensed text-xs uppercase tracking-wider text-edgeline-white/70"
+        className="block font-condensed text-xs uppercase tracking-wider text-card-foreground/70"
       >
         {label}
       </label>
       <select
         id={registration.name}
         {...registration}
-        className="mt-2 w-full border border-edgeline-border bg-edgeline-black px-4 py-3 font-body text-edgeline-white focus:border-edgeline-red focus:outline-none"
+        className="mt-2 w-full border border-theme-border bg-card px-4 py-3 font-body text-card-foreground focus:border-edgeline-red focus:outline-none"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>

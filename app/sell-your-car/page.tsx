@@ -2,45 +2,42 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/layout/PageHeader";
 import ComparisonCard from "@/components/sell/ComparisonCard";
 import SellYourCarForm from "@/components/forms/SellYourCarForm";
+import { getLocale } from "@/lib/i18n/server";
+import { getDictionary } from "@/lib/i18n/dictionary";
 
 export const metadata: Metadata = {
   title: "Sell Your Car",
   description: "Outright purchase or consignment — sell your car to Edgeline Exports.",
 };
 
-export default function SellYourCarPage() {
+export default async function SellYourCarPage() {
+  const locale = await getLocale();
+  const t = getDictionary(locale);
+
   return (
-    <div className="bg-edgeline-black">
+    <div className="bg-surface">
       <PageHeader
-        label="Sell Your Car"
-        title="Outright Purchase or Consignment"
-        subtitle="Two ways to sell. Tell us your car's details and we'll recommend the right one."
+        label={t.pageHeaders.sellYourCar.label}
+        title={t.pageHeaders.sellYourCar.title}
+        subtitle={t.pageHeaders.sellYourCar.subtitle}
       />
 
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-8">
         <div className="grid gap-6 md:grid-cols-2">
           <ComparisonCard
-            title="Outright Purchase"
-            description="Fastest way to sell — no listing, no waiting on a buyer."
-            steps={[
-              "Tell us about your car",
-              "Get a firm cash offer within 24 hours",
-              "We pick up and pay you on the spot",
-            ]}
+            title={t.comparisonCard.outrightTitle}
+            description={t.comparisonCard.outrightDescription}
+            steps={[...t.comparisonCard.outrightSteps]}
           />
           <ComparisonCard
-            title="Consignment"
-            description="We market it for you and you keep more of the sale price."
-            steps={[
-              "We list and market your car to our buyer network",
-              "We handle inquiries, viewings, and negotiation",
-              "You get paid when it sells — typically for more",
-            ]}
+            title={t.comparisonCard.consignmentTitle}
+            description={t.comparisonCard.consignmentDescription}
+            steps={[...t.comparisonCard.consignmentSteps]}
           />
         </div>
 
         <div className="mx-auto mt-16 max-w-3xl">
-          <SellYourCarForm />
+          <SellYourCarForm locale={locale} />
         </div>
       </div>
     </div>
